@@ -2,11 +2,11 @@ import argparse
 import math
 import sys
 import random as rand
-import pprint
 import timeit
 
 __verbose = False
 __leaf_count = 0
+__vertices_count = 0
 __max_depth = 0
 
 def Entropy(s):
@@ -115,9 +115,13 @@ def GenerateTree(s, features, used_features=[], depth_count=0):
     global __verbose
     global __leaf_count
     global __max_depth
+    global __vertices_count
 
     if depth_count > __max_depth:
         __max_depth = depth_count
+
+    __vertices_count += 1
+
     class_counts = {}
     feature_list = [x for x in features.keys() if x not in used_features]
 
@@ -152,7 +156,7 @@ def GenerateTree(s, features, used_features=[], depth_count=0):
     else:
         #split on the feature with the highest gain\
         if __verbose:
-            print "Calculating Gains"
+            print "Calculating Gain"
 
         gains = {}
         val_list = {}
@@ -160,6 +164,7 @@ def GenerateTree(s, features, used_features=[], depth_count=0):
             if features[f]['is_real']:
                 if __verbose:
                     print "\tCalculating Thresholds"
+
                 thresholds = []
                 s_sorted = sorted(s, key=lambda x: x['features'][f])
                 last_class = s_sorted[0]['class']
@@ -172,12 +177,14 @@ def GenerateTree(s, features, used_features=[], depth_count=0):
 
                 if __verbose:
                     print "\tNum thresholds: " + str(len(thresholds))
+                    print "\tCalculating Gains..."
                 thresholds = dict(zip(thresholds, [Gain(s,f,x) for x in thresholds]))
                 max_val = max(thresholds, key=thresholds.get)
                 if __verbose:
                     print "\tBest threshold: " + str(thresholds[max_val]) + "\n"
                 gains[f], val_list[f] = thresholds[max_val], max_val
             else:
+
                 gains[f], val_list[f] = Gain(s, f)
 
         split_feat = max(gains, key=gains.get)
@@ -264,6 +271,58 @@ def TestTree(test_data, tree, features):
 
     return analytics
 
+def TestForest(test_data, forest, features):
+    analytics = {
+        'classes': {},
+        'correct': 0,
+        'total': len(test_data)
+    }
+    for line in test_data:
+        class_counts = {}
+        for tree in forest:
+            c = Classify(line, tree[0], tree[1])
+            if c not in class_counts:
+                class_counts[c] = 1
+            else:
+                class_counts[c] += 1
+        max_class = max(class_counts, key=class_counts.get)
+        if line['class'] not in analytics:
+            analytics['classes'][line['class']] = {
+                'count': len([x for x in test_data if x['class'] == line['class']]),
+                'correct': 0,
+                'misclass': {}
+            }
+
+        if max_class == line['class']:
+            analytics['correct'] += 1
+            analytics['classes'][max_class]['correct'] += 1
+        else:
+            if max_class not in analytics['classes'][line['class']]['misclass']:
+                analytics['classes'][line['class']]['misclass'][max_class] = 1
+            else:
+                analytics['classes'][line['class']]['misclass'][max_class] += 1
+
+    return analytics
+
+
+def GenerateForest(train_data, features, tree_count):
+    global __leaf_count
+    global __max_depth
+    global __vertices_count
+    trees = []
+    for i in range(0,tree_count):
+        sub_data = GetSubset(train_data)
+        sub_features = {i: features[i] for i in GetSubset(features.keys())}
+        print "\tCreating tree " + str(i+1) + "/" + str(tree_count)
+        if __verbose:
+            print "\t\tSubset size: " + str(len(sub_data))
+            print "\t\tFeature list size:" + str(len(sub_features))
+        trees.append((GenerateTree(sub_data, sub_features), sub_features))
+        __leaf_count = 0
+        __max_depth = 0
+        __vertices_count = 0
+    return trees
+
 def Classify(data_line, tree, features):
     if tree['is_leaf']:
         return tree['class']
@@ -276,33 +335,59 @@ def Classify(data_line, tree, features):
         else:
             return Classify(data_line, tree['branches'][data_line['features'][tree['feature']]], features)
 
+def GetSubset(list):
+    return [list[i] for i in rand.sample(xrange(len(list)), rand.randrange(math.floor(len(list) * .1), len(list)))]
+
 
 
 #begin main function
 if __name__ == "__main__":
-    pp = pprint.PrettyPrinter(indent=1)
     parser = argparse.ArgumentParser(description="Use Decision trees to classify datasets")
     parser.add_argument("--data", "-d", dest='filename', default='car.data')
     parser.add_argument("--verbose", "-v", dest='verbose', action="store_true", default=False)
+    parser.add_argument("--lorax", "-l", dest="lorax", action="store_true", default=False)
+    parser.add_argument("--treecount", "-t", default="10", type=int)
+
 
     args = parser.parse_args()
     __verbose = args.verbose;
 
     train_data, test_data, classes, features = LoadData(args.filename)
 
-    print "Starting Training..."
-    train_start = timeit.default_timer()
-    tree = GenerateTree(train_data, features)
-    train_end = timeit.default_timer()
-    print "Train time: " + str(train_end - train_start) + '\n'
-    # pp.pprint(tree)
+    if args.lorax:
+        print "~~I am the Lorax. I speak for the trees. I speak for the trees for the trees have no tongues~~\n"
 
-    print "Starting Testing..."
-    test_start = timeit.default_timer()
-    results = TestTree(test_data, tree, features)
-    test_end = timeit.default_timer()
-    print "Test time: " + str(test_end - test_start) + '\n'
+        print "Generating Forest"
+        train_start = timeit.default_timer()
+        forest = GenerateForest(train_data, features, args.treecount)
+        train_end = timeit.default_timer()
+        print "Forest Generation time: " + str(train_end - train_start) + "\n"
 
-    print "~~Results~~"
-    print "Leaf Count: " + str(__leaf_count) + ", Height: " + str(__max_depth)
-    print "Accuracy: " + str(((results['correct'] + 0.0) / results['total']) * 100)
+        print "Starting Testing..."
+        test_start = timeit.default_timer()
+        results = TestForest(test_data, forest, features)
+        test_end = timeit.default_timer()
+        print "Testing time: " + str(test_end - test_start) + "\n"
+
+        print "~~Results~~"
+        print "Tree Count: " + str(len(forest))
+        print "Accuract: " + str(round(((results['correct'] + 0.0) / results['total']) * 100, 3)) + "%"
+
+    else:
+        print "Generating Tree..."
+        train_start = timeit.default_timer()
+        tree = GenerateTree(train_data, features)
+        train_end = timeit.default_timer()
+        print "Train time: " + str(train_end - train_start) + '\n'
+
+        print "Starting Testing..."
+        test_start = timeit.default_timer()
+        results = TestTree(test_data, tree, features)
+        test_end = timeit.default_timer()
+        print "Test time: " + str(test_end - test_start) + '\n'
+
+        print "~~Results~~"
+        print "Leaf Count: " + str(__leaf_count) 
+        print "Height: " + str(__max_depth) 
+        print "Vertices Count: " + str(__vertices_count)
+        print "Accuracy: " + str(round(((results['correct'] + 0.0) / results['total']) * 100, 3)) + "%"
