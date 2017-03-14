@@ -1,0 +1,68 @@
+0. Split on sepalWidth
+	over 3.1: Go To 1
+	under 3.1: Go To 10
+
+1. Split on petalWidth
+	over 1.0: Go To 2
+	under 1.0: Go To 9
+
+2. Split on sepalLength
+	over 6.7: Go To 3
+	under 6.7: Go To 6
+
+3. Split on petalLength
+	over 5.0: Go To 4
+	under 5.0: Go To 5
+
+4. Classified as Iris-virginica
+
+5. Classified as Iris-versicolor
+
+6. Split on petalLength
+	over 4.95: Go To 7
+	under 4.95: Go To 8
+
+7. Classified as Iris-virginica
+
+8. Classified as Iris-versicolor
+
+9. Classified as Iris-setosa
+
+10. Split on petalWidth
+	over 1.4: Go To 11
+	under 1.4: Go To 18
+
+11. Split on petalLength
+	over 5.1: Go To 12
+	under 5.1: Go To 15
+
+12. Split on sepalLength
+	over 6.05: Go To 13
+	under 6.05: Go To 14
+
+13. Classified as Iris-virginica
+
+14. Classified as Iris-virginica
+
+15. Split on sepalLength
+	over 6.0: Go To 16
+	under 6.0: Go To 17
+
+16. Classified as Iris-versicolor
+
+17. Classified as Iris-virginica
+
+18. Split on sepalLength
+	over 4.95: Go To 19
+	under 4.95: Go To 20
+
+19. Classified as Iris-versicolor
+
+20. Split on petalLength
+	over 2.35: Go To 21
+	under 2.35: Go To 22
+
+21. Classified as Iris-versicolor
+
+22. Classified as Iris-setosa
+

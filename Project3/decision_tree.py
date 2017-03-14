@@ -3,11 +3,13 @@ import math
 import sys
 import random as rand
 import timeit
+import os
 
 __verbose = False
 __leaf_count = 0
 __vertices_count = 0
 __max_depth = 0
+__ifthen_count = 0
 
 def Entropy(s):
     counts = {}
@@ -228,6 +230,7 @@ def GenerateTree(s, features, used_features=[], depth_count=0):
                     'class': most_likely_class
                 }
         else:
+            retval['is_real'] = False
             for val in features[split_feat]['classes']:
                 temp = [x for x in s if x['features'][split_feat] == val]
                 if len(temp) > 0:
@@ -338,6 +341,24 @@ def Classify(data_line, tree, features):
 def GetSubset(list, threshold=0):
     return [list[i] for i in rand.sample(xrange(len(list)), rand.randrange(math.floor(len(list) * threshold), len(list)))]
 
+#TODO
+def CreateIfThen(tree, features):
+    global __ifthen_count
+
+    if tree['is_leaf']:
+        return str(__ifthen_count) + ". Classified as " + tree['class'] + '\n\n'
+    else:
+        counter = 0
+        retstr = str(__ifthen_count) + ". Split on " + tree['feature'] + '\n'
+        appstr = ""
+        for k in tree['branches']:
+            __ifthen_count += 1
+            if tree['is_real']:
+                retstr += "\t" + k + " " + str(tree['split_val']) + ": Go To " + str(__ifthen_count) + "\n"
+            else:
+                retstr += "\t" + k + ": Go To " + str(__ifthen_count) + "\n"
+            appstr += CreateIfThen(tree['branches'][k], features)
+        return retstr + "\n" + appstr
 
 
 #begin main function
@@ -391,3 +412,10 @@ if __name__ == "__main__":
         print "Height: " + str(__max_depth) 
         print "Vertices Count: " + str(__vertices_count)
         print "Accuracy: " + str(round(((results['correct'] + 0.0) / results['total']) * 100, 3)) + "%"
+
+        #create If Then document
+        ifthen_filename, junk = os.path.splitext(args.filename)
+        ifthen_result = CreateIfThen(tree, features)
+        fp = open(ifthen_filename + ".ift", 'w')
+        fp.write(ifthen_result)
+        fp.close()

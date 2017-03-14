@@ -1,0 +1,681 @@
+0. Split on safety
+	high: Go To 1
+	medium: Go To 151
+	low: Go To 340
+1. Split on persons
+	2: Go To 2
+	4: Go To 3
+	6: Go To 55
+2. Classified as poor
+3. Split on cost
+	high: Go To 4
+	medium: Go To 9
+	vhigh: Go To 28
+	low: Go To 33
+4. Split on maintenance
+	high: Go To 5
+	medium: Go To 6
+	vhigh: Go To 7
+	low: Go To 8
+5. Classified as acceptable
+6. Classified as acceptable
+7. Classified as poor
+8. Classified as acceptable
+9. Split on maintenance
+	high: Go To 10
+	medium: Go To 11
+	vhigh: Go To 19
+	low: Go To 20
+10. Classified as acceptable
+11. Split on trunk
+	small: Go To 12
+	big: Go To 13
+	medium: Go To 14
+12. Classified as acceptable
+13. Classified as vgood
+14. Split on doors
+	3: Go To 15
+	2: Go To 16
+	5: Go To 17
+	4: Go To 18
+15. Classified as vgood
+16. Classified as acceptable
+17. Classified as vgood
+18. Classified as vgood
+19. Classified as acceptable
+20. Split on trunk
+	small: Go To 21
+	big: Go To 22
+	medium: Go To 23
+21. Classified as good
+22. Classified as vgood
+23. Split on doors
+	3: Go To 24
+	2: Go To 25
+	5: Go To 26
+	4: Go To 27
+24. Classified as good
+25. Classified as good
+26. Classified as good
+27. Classified as vgood
+28. Split on maintenance
+	high: Go To 29
+	medium: Go To 30
+	vhigh: Go To 31
+	low: Go To 32
+29. Classified as poor
+30. Classified as acceptable
+31. Classified as poor
+32. Classified as acceptable
+33. Split on maintenance
+	high: Go To 34
+	medium: Go To 38
+	vhigh: Go To 46
+	low: Go To 47
+34. Split on trunk
+	small: Go To 35
+	big: Go To 36
+	medium: Go To 37
+35. Classified as acceptable
+36. Classified as vgood
+37. Classified as acceptable
+38. Split on doors
+	3: Go To 39
+	2: Go To 43
+	5: Go To 44
+	4: Go To 45
+39. Split on trunk
+	small: Go To 40
+	big: Go To 41
+	medium: Go To 42
+40. Classified as good
+41. Classified as vgood
+42. Classified as good
+43. Classified as good
+44. Classified as vgood
+45. Classified as vgood
+46. Classified as acceptable
+47. Split on trunk
+	small: Go To 48
+	big: Go To 49
+	medium: Go To 50
+48. Classified as good
+49. Classified as vgood
+50. Split on doors
+	3: Go To 51
+	2: Go To 52
+	5: Go To 53
+	4: Go To 54
+51. Classified as good
+52. Classified as vgood
+53. Classified as vgood
+54. Classified as vgood
+55. Split on cost
+	high: Go To 56
+	medium: Go To 82
+	vhigh: Go To 101
+	low: Go To 117
+56. Split on maintenance
+	high: Go To 57
+	medium: Go To 65
+	vhigh: Go To 73
+	low: Go To 74
+57. Split on doors
+	3: Go To 58
+	2: Go To 59
+	5: Go To 63
+	4: Go To 64
+58. Classified as acceptable
+59. Split on trunk
+	small: Go To 60
+	big: Go To 61
+	medium: Go To 62
+60. Classified as poor
+61. Classified as acceptable
+62. Classified as poor
+63. Classified as acceptable
+64. Classified as acceptable
+65. Split on doors
+	3: Go To 66
+	2: Go To 67
+	5: Go To 71
+	4: Go To 72
+66. Classified as acceptable
+67. Split on trunk
+	small: Go To 68
+	big: Go To 69
+	medium: Go To 70
+68. Classified as poor
+69. Classified as acceptable
+70. Classified as poor
+71. Classified as acceptable
+72. Classified as acceptable
+73. Classified as poor
+74. Split on doors
+	3: Go To 75
+	2: Go To 76
+	5: Go To 80
+	4: Go To 81
+75. Classified as acceptable
+76. Split on trunk
+	small: Go To 77
+	big: Go To 78
+	medium: Go To 79
+77. Classified as poor
+78. Classified as acceptable
+79. Classified as acceptable
+80. Classified as acceptable
+81. Classified as acceptable
+82. Split on maintenance
+	high: Go To 83
+	medium: Go To 84
+	vhigh: Go To 92
+	low: Go To 93
+83. Classified as acceptable
+84. Split on trunk
+	small: Go To 85
+	big: Go To 90
+	medium: Go To 91
+85. Split on doors
+	3: Go To 86
+	2: Go To 87
+	5: Go To 88
+	4: Go To 89
+86. Classified as poor
+87. Classified as poor
+88. Classified as acceptable
+89. Classified as poor
+90. Classified as vgood
+91. Classified as vgood
+92. Classified as acceptable
+93. Split on trunk
+	small: Go To 94
+	big: Go To 99
+	medium: Go To 100
+94. Split on doors
+	3: Go To 95
+	2: Go To 96
+	5: Go To 97
+	4: Go To 98
+95. Classified as good
+96. Classified as poor
+97. Classified as good
+98. Classified as good
+99. Classified as vgood
+100. Classified as vgood
+101. Split on maintenance
+	high: Go To 102
+	medium: Go To 103
+	vhigh: Go To 111
+	low: Go To 112
+102. Classified as poor
+103. Split on doors
+	3: Go To 104
+	2: Go To 105
+	5: Go To 109
+	4: Go To 110
+104. Classified as acceptable
+105. Split on trunk
+	small: Go To 106
+	big: Go To 107
+	medium: Go To 108
+106. Classified as poor
+107. Classified as poor
+108. Classified as acceptable
+109. Classified as acceptable
+110. Classified as acceptable
+111. Classified as poor
+112. Split on doors
+	3: Go To 113
+	2: Go To 114
+	5: Go To 115
+	4: Go To 116
+113. Classified as acceptable
+114. Classified as poor
+115. Classified as acceptable
+116. Classified as acceptable
+117. Split on maintenance
+	high: Go To 118
+	medium: Go To 130
+	vhigh: Go To 138
+	low: Go To 139
+118. Split on trunk
+	small: Go To 119
+	big: Go To 124
+	medium: Go To 125
+119. Split on doors
+	3: Go To 120
+	2: Go To 121
+	5: Go To 122
+	4: Go To 123
+120. Classified as acceptable
+121. Classified as poor
+122. Classified as acceptable
+123. Classified as acceptable
+124. Classified as vgood
+125. Split on doors
+	3: Go To 126
+	2: Go To 127
+	5: Go To 128
+	4: Go To 129
+126. Classified as vgood
+127. Classified as acceptable
+128. Classified as vgood
+129. Classified as vgood
+130. Split on trunk
+	small: Go To 131
+	big: Go To 132
+	medium: Go To 133
+131. Classified as good
+132. Classified as vgood
+133. Split on doors
+	3: Go To 134
+	2: Go To 135
+	5: Go To 136
+	4: Go To 137
+134. Classified as vgood
+135. Classified as good
+136. Classified as vgood
+137. Classified as vgood
+138. Classified as acceptable
+139. Split on trunk
+	small: Go To 140
+	big: Go To 145
+	medium: Go To 146
+140. Split on doors
+	3: Go To 141
+	2: Go To 142
+	5: Go To 143
+	4: Go To 144
+141. Classified as good
+142. Classified as poor
+143. Classified as good
+144. Classified as good
+145. Classified as vgood
+146. Split on doors
+	3: Go To 147
+	2: Go To 148
+	5: Go To 149
+	4: Go To 150
+147. Classified as vgood
+148. Classified as good
+149. Classified as vgood
+150. Classified as vgood
+151. Split on persons
+	2: Go To 152
+	4: Go To 153
+	6: Go To 230
+152. Classified as poor
+153. Split on cost
+	high: Go To 154
+	medium: Go To 174
+	vhigh: Go To 200
+	low: Go To 208
+154. Split on trunk
+	small: Go To 155
+	big: Go To 156
+	medium: Go To 161
+155. Classified as poor
+156. Split on maintenance
+	high: Go To 157
+	medium: Go To 158
+	vhigh: Go To 159
+	low: Go To 160
+157. Classified as acceptable
+158. Classified as acceptable
+159. Classified as poor
+160. Classified as acceptable
+161. Split on doors
+	3: Go To 162
+	2: Go To 163
+	5: Go To 164
+	4: Go To 169
+162. Classified as poor
+163. Classified as poor
+164. Split on maintenance
+	high: Go To 165
+	medium: Go To 166
+	vhigh: Go To 167
+	low: Go To 168
+165. Classified as acceptable
+166. Classified as acceptable
+167. Classified as poor
+168. Classified as acceptable
+169. Split on maintenance
+	high: Go To 170
+	medium: Go To 171
+	vhigh: Go To 172
+	low: Go To 173
+170. Classified as poor
+171. Classified as poor
+172. Classified as poor
+173. Classified as acceptable
+174. Split on maintenance
+	high: Go To 175
+	medium: Go To 183
+	vhigh: Go To 184
+	low: Go To 192
+175. Split on trunk
+	small: Go To 176
+	big: Go To 177
+	medium: Go To 178
+176. Classified as poor
+177. Classified as acceptable
+178. Split on doors
+	3: Go To 179
+	2: Go To 180
+	5: Go To 181
+	4: Go To 182
+179. Classified as acceptable
+180. Classified as poor
+181. Classified as acceptable
+182. Classified as acceptable
+183. Classified as acceptable
+184. Split on trunk
+	small: Go To 185
+	big: Go To 186
+	medium: Go To 187
+185. Classified as poor
+186. Classified as acceptable
+187. Split on doors
+	3: Go To 188
+	2: Go To 189
+	5: Go To 190
+	4: Go To 191
+188. Classified as poor
+189. Classified as poor
+190. Classified as poor
+191. Classified as acceptable
+192. Split on doors
+	3: Go To 193
+	2: Go To 194
+	5: Go To 195
+	4: Go To 196
+193. Classified as good
+194. Classified as acceptable
+195. Classified as good
+196. Split on trunk
+	small: Go To 197
+	big: Go To 198
+	medium: Go To 199
+197. Classified as acceptable
+198. Classified as good
+199. Classified as good
+200. Split on trunk
+	small: Go To 201
+	big: Go To 202
+	medium: Go To 207
+201. Classified as poor
+202. Split on maintenance
+	high: Go To 203
+	medium: Go To 204
+	vhigh: Go To 205
+	low: Go To 206
+203. Classified as poor
+204. Classified as acceptable
+205. Classified as poor
+206. Classified as acceptable
+207. Classified as poor
+208. Split on maintenance
+	high: Go To 209
+	medium: Go To 210
+	vhigh: Go To 214
+	low: Go To 222
+209. Classified as acceptable
+210. Split on trunk
+	small: Go To 211
+	big: Go To 212
+	medium: Go To 213
+211. Classified as acceptable
+212. Classified as good
+213. Classified as good
+214. Split on trunk
+	small: Go To 215
+	big: Go To 216
+	medium: Go To 217
+215. Classified as poor
+216. Classified as acceptable
+217. Split on doors
+	3: Go To 218
+	2: Go To 219
+	5: Go To 220
+	4: Go To 221
+218. Classified as poor
+219. Classified as poor
+220. Classified as acceptable
+221. Classified as poor
+222. Split on trunk
+	small: Go To 223
+	big: Go To 224
+	medium: Go To 225
+223. Classified as acceptable
+224. Classified as good
+225. Split on doors
+	3: Go To 226
+	2: Go To 227
+	5: Go To 228
+	4: Go To 229
+226. Classified as good
+227. Classified as acceptable
+228. Classified as good
+229. Classified as good
+230. Split on cost
+	high: Go To 231
+	medium: Go To 251
+	vhigh: Go To 288
+	low: Go To 307
+231. Split on trunk
+	small: Go To 232
+	big: Go To 233
+	medium: Go To 238
+232. Classified as poor
+233. Split on maintenance
+	high: Go To 234
+	medium: Go To 235
+	vhigh: Go To 236
+	low: Go To 237
+234. Classified as acceptable
+235. Classified as acceptable
+236. Classified as poor
+237. Classified as acceptable
+238. Split on maintenance
+	high: Go To 239
+	medium: Go To 240
+	vhigh: Go To 245
+	low: Go To 246
+239. Classified as acceptable
+240. Split on doors
+	3: Go To 241
+	2: Go To 242
+	5: Go To 243
+	4: Go To 244
+241. Classified as acceptable
+242. Classified as poor
+243. Classified as acceptable
+244. Classified as acceptable
+245. Classified as poor
+246. Split on doors
+	3: Go To 247
+	2: Go To 248
+	5: Go To 249
+	4: Go To 250
+247. Classified as acceptable
+248. Classified as poor
+249. Classified as acceptable
+250. Classified as acceptable
+251. Split on maintenance
+	high: Go To 252
+	medium: Go To 260
+	vhigh: Go To 268
+	low: Go To 276
+252. Split on trunk
+	small: Go To 253
+	big: Go To 254
+	medium: Go To 255
+253. Classified as poor
+254. Classified as acceptable
+255. Split on doors
+	3: Go To 256
+	2: Go To 257
+	5: Go To 258
+	4: Go To 259
+256. Classified as poor
+257. Classified as poor
+258. Classified as acceptable
+259. Classified as poor
+260. Split on doors
+	3: Go To 261
+	2: Go To 262
+	5: Go To 266
+	4: Go To 267
+261. Classified as acceptable
+262. Split on trunk
+	small: Go To 263
+	big: Go To 264
+	medium: Go To 265
+263. Classified as poor
+264. Classified as acceptable
+265. Classified as acceptable
+266. Classified as acceptable
+267. Classified as acceptable
+268. Split on trunk
+	small: Go To 269
+	big: Go To 270
+	medium: Go To 271
+269. Classified as poor
+270. Classified as acceptable
+271. Split on doors
+	3: Go To 272
+	2: Go To 273
+	5: Go To 274
+	4: Go To 275
+272. Classified as acceptable
+273. Classified as poor
+274. Classified as acceptable
+275. Classified as acceptable
+276. Split on trunk
+	small: Go To 277
+	big: Go To 282
+	medium: Go To 283
+277. Split on doors
+	3: Go To 278
+	2: Go To 279
+	5: Go To 280
+	4: Go To 281
+278. Classified as acceptable
+279. Classified as poor
+280. Classified as acceptable
+281. Classified as acceptable
+282. Classified as good
+283. Split on doors
+	3: Go To 284
+	2: Go To 285
+	5: Go To 286
+	4: Go To 287
+284. Classified as acceptable
+285. Classified as acceptable
+286. Classified as good
+287. Classified as acceptable
+288. Split on maintenance
+	high: Go To 289
+	medium: Go To 290
+	vhigh: Go To 298
+	low: Go To 299
+289. Classified as poor
+290. Split on trunk
+	small: Go To 291
+	big: Go To 292
+	medium: Go To 293
+291. Classified as poor
+292. Classified as acceptable
+293. Split on doors
+	3: Go To 294
+	2: Go To 295
+	5: Go To 296
+	4: Go To 297
+294. Classified as acceptable
+295. Classified as poor
+296. Classified as acceptable
+297. Classified as acceptable
+298. Classified as poor
+299. Split on trunk
+	small: Go To 300
+	big: Go To 301
+	medium: Go To 302
+300. Classified as poor
+301. Classified as acceptable
+302. Split on doors
+	3: Go To 303
+	2: Go To 304
+	5: Go To 305
+	4: Go To 306
+303. Classified as acceptable
+304. Classified as poor
+305. Classified as acceptable
+306. Classified as acceptable
+307. Split on maintenance
+	high: Go To 308
+	medium: Go To 316
+	vhigh: Go To 324
+	low: Go To 332
+308. Split on doors
+	3: Go To 309
+	2: Go To 310
+	5: Go To 314
+	4: Go To 315
+309. Classified as acceptable
+310. Split on trunk
+	small: Go To 311
+	big: Go To 312
+	medium: Go To 313
+311. Classified as poor
+312. Classified as acceptable
+313. Classified as acceptable
+314. Classified as acceptable
+315. Classified as acceptable
+316. Split on trunk
+	small: Go To 317
+	big: Go To 322
+	medium: Go To 323
+317. Split on doors
+	3: Go To 318
+	2: Go To 319
+	5: Go To 320
+	4: Go To 321
+318. Classified as acceptable
+319. Classified as poor
+320. Classified as acceptable
+321. Classified as acceptable
+322. Classified as good
+323. Classified as good
+324. Split on trunk
+	small: Go To 325
+	big: Go To 326
+	medium: Go To 327
+325. Classified as poor
+326. Classified as acceptable
+327. Split on doors
+	3: Go To 328
+	2: Go To 329
+	5: Go To 330
+	4: Go To 331
+328. Classified as acceptable
+329. Classified as poor
+330. Classified as acceptable
+331. Classified as acceptable
+332. Split on trunk
+	small: Go To 333
+	big: Go To 334
+	medium: Go To 335
+333. Classified as acceptable
+334. Classified as good
+335. Split on doors
+	3: Go To 336
+	2: Go To 337
+	5: Go To 338
+	4: Go To 339
+336. Classified as good
+337. Classified as acceptable
+338. Classified as good
+339. Classified as good
+340. Classified as poor
