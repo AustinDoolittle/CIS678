@@ -11,35 +11,44 @@ __vertices_count = 0
 __max_depth = 0
 __ifthen_count = 0
 
+#finds the entropy of a set
 def Entropy(s):
     counts = {}
     total_size = len(s)
+
+    #get the count of each class
     for line in s:
         if line['class'] not in counts:
             counts[line['class']] = 1
         else:
             counts[line['class']] += 1
 
+    #get the sum of the log * val
     retval = 0
     for c in counts:
         temp = (counts[c] + 0.0) / total_size
         retval += temp * math.log(temp, 2)
 
+    #negate and return
     return -retval
 
+#find the Mean Squared Error in replacement of Entropy
 def MSQ_Entropy(s, feat, real_val):
     retval = 0
     for line in s:
         retval += (real_val - line['features'][feat]) ** 2
     return retval / len(s)
 
+#the Gain function on a feature
 def Gain(s, a, real_val=None):
     total_size = len(s)
 
     if real_val is not None:
+        #this is a continuous value, return the MSQ
         retval = MSQ_Entropy(s, a, real_val)
         return Entropy(s) - retval, real_val
     else:
+        #this is a discrete value, Calculate entropy
         feat_vals = {}
         for line in s:
             if line['features'][a] not in feat_vals:
@@ -53,11 +62,12 @@ def Gain(s, a, real_val=None):
 
         return Entropy(s) - retval, feat_vals.keys()
 
-
+#a helper function for splitting the data (in the event of spaces)
 def MySplit(line):
     retval = line.split(',')
     return [x.strip() for x in retval]
 
+#method that loads the data
 def LoadData(filename):
     with open(filename) as f:
         data = f.readlines()
@@ -93,6 +103,7 @@ def LoadData(filename):
 
     retval = []
 
+    #generate array of data instances
     for line in data[index:]:
         line_data = MySplit(line)
         temp = {}
@@ -107,18 +118,21 @@ def LoadData(filename):
             'class': line_data[feature_count]
         })
 
+    #shuffle the array, split into training and testing
     rand.shuffle(retval)
     split_index = int(.75 * len(retval))
     train = retval[:split_index]
     test = retval[split_index:]
     return train, test, classes, features
 
+#Generates a tree based on the provided training set and features
 def GenerateTree(s, features, used_features=[], depth_count=0):
     global __verbose
     global __leaf_count
     global __max_depth
     global __vertices_count
 
+    #check if we have beat the previous max depth
     if depth_count > __max_depth:
         __max_depth = depth_count
 
@@ -127,12 +141,14 @@ def GenerateTree(s, features, used_features=[], depth_count=0):
     class_counts = {}
     feature_list = [x for x in features.keys() if x not in used_features]
 
+    #get the class counts at this node
     for line in s:
         if line['class'] not in class_counts:
             class_counts[line['class']] = 1
         else:
             class_counts[line['class']] += 1
 
+    #determine the most likely, for use later
     most_likely_class = max(class_counts, key=class_counts.get)
 
     if len(class_counts) == 1:
@@ -164,6 +180,7 @@ def GenerateTree(s, features, used_features=[], depth_count=0):
         val_list = {}
         for f in feature_list:
             if features[f]['is_real']:
+                #its real, Get the best threshold
                 if __verbose:
                     print "\tCalculating Thresholds"
 
@@ -186,7 +203,7 @@ def GenerateTree(s, features, used_features=[], depth_count=0):
                     print "\tBest threshold: " + str(thresholds[max_val]) + "\n"
                 gains[f], val_list[f] = thresholds[max_val], max_val
             else:
-
+                #discrete, get the gain
                 gains[f], val_list[f] = Gain(s, f)
 
         split_feat = max(gains, key=gains.get)
@@ -197,18 +214,27 @@ def GenerateTree(s, features, used_features=[], depth_count=0):
             'branches': {}
         }
 
+        #create a new list from the old list and the newly used feature
         new_used_features = used_features + [split_feat]
 
+        #check what kind of feature we are splitting on
         if features[split_feat]['is_real']:
+            #continuous
             retval['is_real'] = True
             retval['split_val'] = val_list[split_feat]
+
+            #create the two subsets
             under_thresh = [x for x in s if x['features'][split_feat] < val_list[split_feat]]
             over_thresh =[x for x in s if x['features'][split_feat] >= val_list[split_feat]]
+
+
             if len(under_thresh) > 0:
+                #generate split
                 if __verbose:
                     print "Creating split on " + split_feat + ", Depth: " + str(depth_count)
                 retval['branches']['under'] = GenerateTree(under_thresh, features, new_used_features, depth_count + 1)
             else:
+                #generate leaf
                 __leaf_count += 1
                 if __verbose:
                     print "No more training examples, creating leaf, Depth: " + str(depth_count) + ", New Leafcount: " + str(__leaf_count)
@@ -218,10 +244,12 @@ def GenerateTree(s, features, used_features=[], depth_count=0):
                 }
 
             if len(over_thresh) > 0:
+                #generate split
                 if __verbose:
                     print "Creating split on " + split_feat + ", Depth: " + str(depth_count)
                 retval['branches']['over'] = GenerateTree(over_thresh, features, new_used_features, depth_count + 1)
             else:
+                #generate leaf
                 __leaf_count += 1
                 if __verbose:
                     print "No more training examples, creating leaf, Depth: " + str(depth_count) + ", New Leafcount: " + str(__leaf_count)
@@ -230,14 +258,17 @@ def GenerateTree(s, features, used_features=[], depth_count=0):
                     'class': most_likely_class
                 }
         else:
+            #discrete
             retval['is_real'] = False
             for val in features[split_feat]['classes']:
                 temp = [x for x in s if x['features'][split_feat] == val]
                 if len(temp) > 0:
+                    #create split
                     if __verbose:
                         print "Creating split on " + split_feat + ", Depth: " + str(depth_count)
                     retval['branches'][val] = GenerateTree(temp, features, new_used_features, depth_count + 1)
                 else:
+                    #create leaf
                     __leaf_count += 1
                     if __verbose:
                         print "No more training examples, creating leaf, Depth: " + str(depth_count) + ", New Leafcount: " + str(__leaf_count)
@@ -248,12 +279,15 @@ def GenerateTree(s, features, used_features=[], depth_count=0):
 
         return retval
 
+#Function to test a tree
 def TestTree(test_data, tree, features):
     analytics = {
         'classes': {},
         'correct': 0,
         'total': len(test_data)
     }
+
+    #test each data line
     for line in test_data:
         c = Classify(line, tree, features)
         if line['class'] not in analytics['classes']:
@@ -274,6 +308,7 @@ def TestTree(test_data, tree, features):
 
     return analytics
 
+#function to test a forest of trees
 def TestForest(test_data, forest, features):
     analytics = {
         'classes': {},
@@ -282,6 +317,7 @@ def TestForest(test_data, forest, features):
     }
     for line in test_data:
         class_counts = {}
+        #test each individual tree
         for tree in forest:
             c = Classify(line, tree[0], tree[1])
             if c not in class_counts:
@@ -296,6 +332,7 @@ def TestForest(test_data, forest, features):
                 'misclass': {}
             }
 
+        #record the results
         if max_class == line['class']:
             analytics['correct'] += 1
             analytics['classes'][max_class]['correct'] += 1
@@ -307,13 +344,15 @@ def TestForest(test_data, forest, features):
 
     return analytics
 
-
+#creates a forest of trees
 def GenerateForest(train_data, features, tree_count):
     global __leaf_count
     global __max_depth
     global __vertices_count
     trees = []
+    #iterate and create
     for i in range(0,tree_count):
+        #get random subsets of the data
         sub_data = GetSubset(train_data, .1)
         sub_features = {i: features[i] for i in GetSubset(features.keys(), .1)}
         print "\tCreating tree " + str(i+1) + "/" + str(tree_count)
@@ -326,6 +365,7 @@ def GenerateForest(train_data, features, tree_count):
         __vertices_count = 0
     return trees
 
+#classifies a data instance
 def Classify(data_line, tree, features):
     if tree['is_leaf']:
         return tree['class']
@@ -338,12 +378,19 @@ def Classify(data_line, tree, features):
         else:
             return Classify(data_line, tree['branches'][data_line['features'][tree['feature']]], features)
 
+#gets a random subset of the data
 def GetSubset(list, threshold=0):
     return [list[i] for i in rand.sample(xrange(len(list)), rand.randrange(math.floor(len(list) * threshold), len(list)))]
 
-#TODO
+#Recursively constructs a string that allows a user to visually classify a data instance
 def CreateIfThen(tree, features):
     global __ifthen_count
+
+    ###
+    #   Below we are generating the "diagram", it works by generating the rules for the current node
+    #   but also waiting to append the data return from it's children until all children of this node
+    #   are complete, so that we can maintain order of the numbers
+    ##
 
     if tree['is_leaf']:
         return str(__ifthen_count) + ". Classified as " + tree['class'] + '\n\n'
