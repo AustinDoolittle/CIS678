@@ -156,7 +156,7 @@ def GenerateTree(s, features, used_features=[], depth_count=0):
     else:
         #split on the feature with the highest gain\
         if __verbose:
-            print "Calculating Gain"
+            print "Calculating Best Feature"
 
         gains = {}
         val_list = {}
@@ -311,12 +311,12 @@ def GenerateForest(train_data, features, tree_count):
     global __vertices_count
     trees = []
     for i in range(0,tree_count):
-        sub_data = GetSubset(train_data)
-        sub_features = {i: features[i] for i in GetSubset(features.keys())}
+        sub_data = GetSubset(train_data, .1)
+        sub_features = {i: features[i] for i in GetSubset(features.keys(), .1)}
         print "\tCreating tree " + str(i+1) + "/" + str(tree_count)
         if __verbose:
             print "\t\tSubset size: " + str(len(sub_data))
-            print "\t\tFeature list size:" + str(len(sub_features))
+            print "\t\tFeature list size: " + str(len(sub_features))
         trees.append((GenerateTree(sub_data, sub_features), sub_features))
         __leaf_count = 0
         __max_depth = 0
@@ -335,8 +335,8 @@ def Classify(data_line, tree, features):
         else:
             return Classify(data_line, tree['branches'][data_line['features'][tree['feature']]], features)
 
-def GetSubset(list):
-    return [list[i] for i in rand.sample(xrange(len(list)), rand.randrange(math.floor(len(list) * .1), len(list)))]
+def GetSubset(list, threshold=0):
+    return [list[i] for i in rand.sample(xrange(len(list)), rand.randrange(math.floor(len(list) * threshold), len(list)))]
 
 
 
