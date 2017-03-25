@@ -1,0 +1,722 @@
+Script started on Tue Mar 14 18:42:23 2017
+[?1034hbash-3.2$ python decision_tree.py -d car.data -v
+Generating Tree...
+Calculating Best Feature
+Creating split on safety, Depth: 0
+1 class, creating leaf, Depth: 1,  New Leafcount: 1
+Creating split on safety, Depth: 0
+Calculating Best Feature
+Creating split on persons, Depth: 1
+1 class, creating leaf, Depth: 2,  New Leafcount: 2
+Creating split on persons, Depth: 1
+Calculating Best Feature
+Creating split on cost, Depth: 2
+Calculating Best Feature
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 3
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 4
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 5
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+No more training examples, creating leaf, Depth: 5, New Leafcount: 6
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 7
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 8
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 9
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 10
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 11
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+No more training examples, creating leaf, Depth: 5, New Leafcount: 12
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 13
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 14
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 15
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 16
+Creating split on cost, Depth: 2
+Calculating Best Feature
+Creating split on trunk, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 17
+Creating split on trunk, Depth: 3
+Calculating Best Feature
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 18
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 19
+Creating split on doors, Depth: 4
+Calculating Best Feature
+Creating split on maintenance, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 20
+Creating split on maintenance, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 21
+No more training examples, creating leaf, Depth: 5, New Leafcount: 22
+No more training examples, creating leaf, Depth: 5, New Leafcount: 23
+Creating split on doors, Depth: 4
+Calculating Best Feature
+Creating split on maintenance, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 24
+Creating split on maintenance, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 25
+Creating split on maintenance, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 26
+Creating split on maintenance, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 27
+Creating split on trunk, Depth: 3
+Calculating Best Feature
+Creating split on maintenance, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 28
+Creating split on maintenance, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 29
+Creating split on maintenance, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 30
+Creating split on maintenance, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 31
+Creating split on cost, Depth: 2
+Calculating Best Feature
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 32
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+No more training examples, creating leaf, Depth: 5, New Leafcount: 33
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 34
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 35
+No more training examples, creating leaf, Depth: 5, New Leafcount: 36
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 37
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 38
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 39
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 40
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 41
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 42
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 43
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 44
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 45
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+No more training examples, creating leaf, Depth: 5, New Leafcount: 46
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 47
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 48
+No more training examples, creating leaf, Depth: 5, New Leafcount: 49
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 50
+Creating split on cost, Depth: 2
+Calculating Best Feature
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 51
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 52
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 53
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 54
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 55
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 56
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 57
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 58
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 59
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 60
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 61
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 62
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 63
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 64
+No more training examples, creating leaf, Depth: 5, New Leafcount: 65
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 66
+Creating split on persons, Depth: 1
+Calculating Best Feature
+Creating split on cost, Depth: 2
+Calculating Best Feature
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 67
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 68
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 69
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 70
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 71
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 72
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 73
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 74
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 75
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 76
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 77
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 78
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 79
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 80
+Creating split on cost, Depth: 2
+Calculating Best Feature
+Creating split on trunk, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 81
+Creating split on trunk, Depth: 3
+Calculating Best Feature
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 82
+Creating split on doors, Depth: 4
+Calculating Best Feature
+Creating split on maintenance, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 83
+No more training examples, creating leaf, Depth: 5, New Leafcount: 84
+Creating split on maintenance, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 85
+Creating split on maintenance, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 86
+Creating split on doors, Depth: 4
+Calculating Best Feature
+Creating split on maintenance, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 87
+No more training examples, creating leaf, Depth: 5, New Leafcount: 88
+Creating split on maintenance, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 89
+Creating split on maintenance, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 90
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 91
+Creating split on trunk, Depth: 3
+Calculating Best Feature
+Creating split on maintenance, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 92
+Creating split on maintenance, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 93
+Creating split on maintenance, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 94
+Creating split on maintenance, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 95
+Creating split on cost, Depth: 2
+Calculating Best Feature
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 96
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 97
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 98
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 99
+No more training examples, creating leaf, Depth: 5, New Leafcount: 100
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 101
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 102
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 103
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 104
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 105
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 106
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 107
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on doors, Depth: 4
+Calculating Best Feature
+Creating split on trunk, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 108
+Creating split on trunk, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 109
+No more training examples, creating leaf, Depth: 5, New Leafcount: 110
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 111
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 112
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 113
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 114
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 115
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 116
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 117
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 118
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 119
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 120
+No more training examples, creating leaf, Depth: 5, New Leafcount: 121
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 122
+Creating split on cost, Depth: 2
+Calculating Best Feature
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 123
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 124
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 125
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 126
+No more training examples, creating leaf, Depth: 5, New Leafcount: 127
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 128
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on doors, Depth: 4
+Calculating Best Feature
+Creating split on trunk, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 129
+No more training examples, creating leaf, Depth: 5, New Leafcount: 130
+Creating split on trunk, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 131
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 132
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 133
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 134
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 135
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 136
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 137
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 138
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 139
+No more training examples, creating leaf, Depth: 5, New Leafcount: 140
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 141
+No more training examples, creating leaf, Depth: 5, New Leafcount: 142
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 143
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 144
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 145
+No more training examples, creating leaf, Depth: 5, New Leafcount: 146
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 147
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 148
+No more training examples, creating leaf, Depth: 5, New Leafcount: 149
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 150
+No more training examples, creating leaf, Depth: 5, New Leafcount: 151
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 152
+Creating split on safety, Depth: 0
+Calculating Best Feature
+Creating split on persons, Depth: 1
+1 class, creating leaf, Depth: 2,  New Leafcount: 153
+Creating split on persons, Depth: 1
+Calculating Best Feature
+Creating split on cost, Depth: 2
+Calculating Best Feature
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 154
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 155
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 156
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 157
+Creating split on cost, Depth: 2
+Calculating Best Feature
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 158
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 159
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 160
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 161
+Creating split on cost, Depth: 2
+Calculating Best Feature
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 162
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 163
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 164
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 165
+No more training examples, creating leaf, Depth: 5, New Leafcount: 166
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 167
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 168
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 169
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 170
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 171
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 172
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 173
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 174
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 175
+Creating split on cost, Depth: 2
+Calculating Best Feature
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 176
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 177
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 178
+No more training examples, creating leaf, Depth: 5, New Leafcount: 179
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 180
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 181
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 182
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 183
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 184
+No more training examples, creating leaf, Depth: 5, New Leafcount: 185
+No more training examples, creating leaf, Depth: 5, New Leafcount: 186
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 187
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 188
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on doors, Depth: 4
+Calculating Best Feature
+No more training examples, creating leaf, Depth: 5, New Leafcount: 189
+Creating split on trunk, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 190
+Creating split on trunk, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 191
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 192
+No more training examples, creating leaf, Depth: 4, New Leafcount: 193
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 194
+Creating split on persons, Depth: 1
+Calculating Best Feature
+Creating split on cost, Depth: 2
+Calculating Best Feature
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 195
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 196
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 197
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 198
+Creating split on cost, Depth: 2
+Calculating Best Feature
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 199
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on doors, Depth: 4
+Calculating Best Feature
+Creating split on trunk, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 200
+Creating split on trunk, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 201
+Creating split on trunk, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 202
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 203
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 204
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 205
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on doors, Depth: 4
+Calculating Best Feature
+Creating split on trunk, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 206
+Creating split on trunk, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 207
+Creating split on trunk, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 208
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 209
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 210
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 211
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on doors, Depth: 4
+Calculating Best Feature
+Creating split on trunk, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 212
+Creating split on trunk, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 213
+Creating split on trunk, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 214
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 215
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 216
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 217
+Creating split on cost, Depth: 2
+Calculating Best Feature
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on doors, Depth: 4
+Calculating Best Feature
+Creating split on trunk, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 218
+Creating split on trunk, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 219
+Creating split on trunk, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 220
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 221
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 222
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 223
+Creating split on maintenance, Depth: 3
+1 class, creating leaf, Depth: 4,  New Leafcount: 224
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 225
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 226
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 227
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 228
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 229
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 230
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 231
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 232
+No more training examples, creating leaf, Depth: 5, New Leafcount: 233
+No more training examples, creating leaf, Depth: 5, New Leafcount: 234
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 235
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 236
+Creating split on cost, Depth: 2
+Calculating Best Feature
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on doors, Depth: 4
+Calculating Best Feature
+Creating split on trunk, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 237
+No more training examples, creating leaf, Depth: 5, New Leafcount: 238
+Creating split on trunk, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 239
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 240
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 241
+Creating split on doors, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 242
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 243
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 244
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 245
+No more training examples, creating leaf, Depth: 5, New Leafcount: 246
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 247
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 248
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 249
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 250
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 251
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 252
+No more training examples, creating leaf, Depth: 5, New Leafcount: 253
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 254
+No more training examples, creating leaf, Depth: 5, New Leafcount: 255
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 256
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 257
+No more training examples, creating leaf, Depth: 5, New Leafcount: 258
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 259
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 260
+Creating split on maintenance, Depth: 3
+Calculating Best Feature
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 261
+No more training examples, creating leaf, Depth: 5, New Leafcount: 262
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 263
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 264
+Creating split on trunk, Depth: 4
+Calculating Best Feature
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 265
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 266
+No more training examples, creating leaf, Depth: 5, New Leafcount: 267
+Creating split on doors, Depth: 5
+1 class, creating leaf, Depth: 6,  New Leafcount: 268
+Creating split on trunk, Depth: 4
+1 class, creating leaf, Depth: 5,  New Leafcount: 269
+Train time: 0.0537719726562
+
+Starting Testing...
+Test time: 0.00274896621704
+
+~~Results~~
+Leaf Count: 269
+Height: 6
+Vertices Count: 335
+Accuracy: 92.593%
+bash-3.2$ exit
+exit
+
+Script done on Tue Mar 14 18:42:27 2017
