@@ -5,6 +5,7 @@ import math
 
 DEF_TRAIN_RATE = 0.5
 DEF_MOMENTUM = 0.5
+DEF_VAL_INTERVALS = 10
 
 class Net(object):
   def __init__(self, topology, momentum=DEF_MOMENTUM, verbose=False):
@@ -33,8 +34,17 @@ class Net(object):
     self.weights = np.array(temp_weights)
     self.del_weights = np.array(temp_del_weights)
 
-  def activate(x):
+  def activate(self, x):
     return 1/(1+math.exp(-x))
+
+  def backprop(self, expected):
+    gradients = (expected - self.layers[-1]) ** self.layers[-1] ** (1 - self.layers[-1])
+
+    for i in reversed(range(0, len(layers) - 2)):
+      self.del_weights[i] = (self.train_rate * (self.layers[i] * gradients.transpose())) + (self.momentum * self.del_weights[i])
+
+      self.weights[i] += self.del_weights[i]
+      gradients = (self.weights[i][1:, :] * gradients) ** (1 - (self.weights[i][1:, :] * gradients))
 
   def train(self, train_set, test_set, target, interval, diverge_count, timeout):
     start_time = time.localtime()
@@ -68,7 +78,59 @@ class Net(object):
 
           error_sum += err
 
-          back_prop
+          back_prop(train_set[j][1])
+
+        tr_avg = error_sum / len(train_set)
+
+        if tr_avg < prev_err:
+          self.train_rate *= 1.05
+          prev_weights = self.weights
+          prev_del_weights = self.del_weights
+        else:
+          self.train_rate *= .5
+          self.weights = prev_weights
+          self.del_weights = prev_del_weights
+
+        prev_err = tr_avg
+        counter += 1
+
+      if self.verbose:
+        print "Testing..."
+
+      val_avg = 0
+      for i in range(0, DEF_VAL_INTERVALS):
+        res = forward(test_set[test_index][0])
+        val_avg += get_error(res, test_set[test_index][1])
+        test_index = (test_index + 1) % len(test_set)
+      val_avg /= DEF_VAL_INTERVALS
+
+      diff = tr_avg - val_avg
+
+      #test termination conditions
+      if val_avg <= target:
+        print "~TARGET REACHED~"
+        break
+      else:
+        print  "\tValidate " + str(val_counter) + ", Train Err: " + str(tr_avg) + ", Val Err: " + str(val_avg) + ", Diff: " + str(diff) + ", Target: " + str(target)
+        val_counter += 1
+
+      if diff < prev_diff:
+        diverge_count += 1
+        if diverge_count == diverge_limit:
+          print "~DIVERGE LIMIT~"
+          break
+      else:
+        diverge_count = 0
+
+      prev_diff = diff
+
+      train_end = time.localtime()
+      if train_end - train_start > timeout:
+        print "~TIMEOUT~"
+        break
+
+  def test(self, test_set):
+    
 
 
   def forward(self, inputs):
@@ -86,7 +148,6 @@ class Net(object):
   def get_error(self, actual, expected):
     return np.sum(np.square(expected - actual)) / len(expected)
 
-  def back_prop(self, expected):
     
 
 
