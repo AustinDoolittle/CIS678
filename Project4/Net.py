@@ -1,4 +1,7 @@
 import numpy as np
+import time
+import Dataset
+import math
 
 DEF_TRAIN_RATE = 0.5
 DEF_MOMENTUM = 0.5
@@ -30,6 +33,61 @@ class Net(object):
     self.weights = np.array(temp_weights)
     self.del_weights = np.array(temp_del_weights)
 
+  def activate(x):
+    return 1/(1+math.exp(-x))
+
+  def train(self, train_set, test_set, target, interval, diverge_count, timeout):
+    start_time = time.localtime()
+    test_index = 0 
+    prev_diff = 0
+    diverge_count = 0
+
+    counter = 0
+    val_counter = 1
+    prev_weights = self.weights
+    prev_del_weights = self.del_weights
+
+    while True:
+      if self.verbose:
+        print "Training " + str(counter)
+
+      tr_avg = 0
+      prev_err = .5
+
+      for i in range(0, interval):
+        error_sum = 0
+        for j in range(0, len(train_set)):
+          res = forward(train_set[j][0])
+          if self.verbose:
+            print "\tOutputs/Expected"
+            for k in range(0, len(res)):
+              print "\t\t" + str(res[k]) + "/" + str(train_set[j][1][k])
+          err = get_error(res, train_set[j][1])
+          if self.verbose:
+            print "\tError: " + str(err)
+
+          error_sum += err
+
+          back_prop
+
+
+  def forward(self, inputs):
+    self.layers[0] = inputs
+
+    for i in range(1, len(layers)):
+      if i != len(layers - 1):
+        layers[i][1:] = weights[i-1].transpose() * layers[i-1]
+      else:
+        layers[i] = weights[i-1].transpose() * layers[i-1]
+
+      activate(layers[i])
+    return layers[-1]
+
+  def get_error(self, actual, expected):
+    return np.sum(np.square(expected - actual)) / len(expected)
+
+  def back_prop(self, expected):
+    
 
 
 

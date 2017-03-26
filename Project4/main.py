@@ -1,7 +1,8 @@
 import numpy as np
 import argparse as ap
 import sys
-import Net as NN
+import Net as nn
+import Dataset as ds
 
 def main(argv):
   parser = ap.ArgumentParser(description="This is a neural network written in python using the numpy library for matrix operations")
@@ -19,11 +20,10 @@ def main(argv):
 
   topology = np.append(topology, [args.classcount])
 
-  net = NN.Net(topology)
+  net = nn.Net(topology)
 
-  print net.layers
-  print net.weights
-  print net.del_weights
+  train_set = ds.Dataset(args.trainfile, args.featurecount, args.classcount)
+  test_set = ds.Dataset(args.testfile, args.featurecount, args.classcount)
 
   
 
