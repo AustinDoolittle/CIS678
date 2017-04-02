@@ -47,7 +47,7 @@ class Net(object):
       self.weights[i] += self.del_weights[i]
       gradients = np.dot(self.weights[i][1:, :], gradients) * ((1 - self.layers[i][1:]) * self.layers[i][1:])
 
-  def train(self, train_set, test_set, target, batch_size, diverge_limit, timeout):
+  def train(self, data, target, batch_size, diverge_limit, timeout):
     train_start = timeit.default_timer()
     test_index = 0 
     prev_diff = 0
@@ -67,21 +67,22 @@ class Net(object):
 
       for i in xrange(0, batch_size):
         error_sum = 0
-        for j in xrange(0, len(train_set)):
-          res = self.forward(train_set[j][0])
+        for j in xrange(0, len(data.train_set)):
+          res = self.forward(data.train_set[j][0])
+
           if self.verbose:
             print "\tOutputs/Expected"
             for k in xrange(0, len(res)):
-              print "\t\t" + str(res[k]) + "/" + str(train_set[j][1][k])
-          err = self.get_error(res, train_set[j][1])
+              print "\t\t" + str(res[k]) + "/" + str(data.train_set[j][1][k])
+          err = self.get_error(res, data.train_set[j][1])
           if self.verbose:
             print "\tError: " + str(err)
 
           error_sum += err
 
-          self.backprop(train_set[j][1])
+          self.backprop(data.train_set[j][1])
 
-        tr_avg = error_sum / len(train_set)
+        tr_avg = error_sum / len(data.train_set)
 
         if tr_avg < prev_err:
           self.train_rate *= 1.05
@@ -99,11 +100,11 @@ class Net(object):
         print "Testing..."
 
       val_avg = 0
-      for i in xrange(0, DEF_VAL_batch_sizeS):
-        res = self.forward(test_set[test_index][0])
-        val_avg += self.get_error(res, test_set[test_index][1])
-        test_index = (test_index + 1) % len(test_set)
-      val_avg /= DEF_VAL_batch_sizeS
+      for i in xrange(0, batch_size):
+        res = self.forward(data.val_set[test_index][0])
+        val_avg += self.get_error(res, data.val_set[test_index][1])
+        test_index = (test_index + 1) % len(data.test_set)
+      val_avg /= batch_size
 
       diff = tr_avg - val_avg
 
