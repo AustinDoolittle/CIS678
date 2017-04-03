@@ -3,6 +3,7 @@ import numpy as np
 from sklearn.feature_selection import VarianceThreshold
 from sklearn.decomposition import PCA
 
+
 class Dataset(object):
 
   #init for the Dataset object, loads the dataset from a file
@@ -20,7 +21,7 @@ class Dataset(object):
     #set class variable for feature count
     self.feature_count = feature_count
 
-    #create dataset object
+    #create dataset arrays
     input_arr = []
     output_arr = []
     for line in lines:
@@ -33,8 +34,10 @@ class Dataset(object):
       if len(inputs) != self.feature_count:
         raise ValueError("The Dataset is formatted incorrectly. Expected " + str(self.feature_count) + " features, got " + str(len(inputs)))
 
+      #create output array, 1 for correct class, 0 otherwise
       outputs = [1 if int(words[self.feature_count]) == x else 0 for x in range(0,class_count)]
 
+      #convert to np array and add to local array
       input_arr.append(np.array(inputs))
       output_arr.append(np.array(outputs))
 

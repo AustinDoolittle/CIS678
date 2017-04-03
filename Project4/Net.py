@@ -9,6 +9,9 @@ import numpy as np
 import timeit
 import Dataset
 import math
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+
 
 #define constants
 DEF_TRAIN_RATE = 0.5
@@ -70,16 +73,21 @@ class Net(object):
       gradients = np.dot(self.weights[i][1:, :], gradients) * ((1 - self.layers[i][1:]) * self.layers[i][1:])
 
   #the full training method that trains in batches until the termination conditions are met
-  def train(self, data, target, batch_size, diverge_limit, timeout):
+  def train(self, data, target, batch_size, diverge_limit, timeout, draw_graph=True):
     #set local variables used over training
     train_start = timeit.default_timer()
     test_index = 0 
     prev_diff = 0
     diverge_count = 0
     counter = 0
+    plot_counter = 0
     val_counter = 1
     prev_weights = self.weights
     prev_del_weights = self.del_weights
+    plot_tr_err_X = []
+    plot_tr_err_Y = []
+    plot_test_err_X = []
+    plot_test_err_Y = []
 
     #loop until termination conditions are met
     while True:
@@ -92,6 +100,8 @@ class Net(object):
       #train over the batch size
       for i in xrange(0, batch_size):
         error_sum = 0
+        plot_counter += 1
+
         #train one epoch
         for j in xrange(0, len(data.train_set)):
           res = self.forward(data.train_set[j][0])
@@ -108,12 +118,14 @@ class Net(object):
 
           #add to the sum
           error_sum += err
-
           #backprop over the errors
           self.backprop(data.train_set[j][1])
 
         #get the average training error
         tr_avg = error_sum / len(data.train_set)
+
+        plot_tr_err_X.append(plot_counter)
+        plot_tr_err_Y.append(tr_avg)
 
         #check for improvement, adjust the train rate
         if tr_avg < prev_err:
@@ -140,6 +152,9 @@ class Net(object):
         val_avg += self.get_error(res, data.val_set[test_index][1])
         test_index = (test_index + 1) % len(data.test_set)
       val_avg /= batch_size
+
+      plot_test_err_X.append(plot_counter)
+      plot_test_err_Y.append(val_avg)
 
       #get the difference
       diff = tr_avg - val_avg
@@ -171,6 +186,17 @@ class Net(object):
       if train_end - train_start > timeout:
         print "~TIMEOUT~"
         break
+    
+    if draw_graph:
+      #plot the training graph
+      max_y = max(max(plot_test_err_Y), max(plot_tr_err_Y))
+      max_y += max_y * .25
+      plt.axis([0, plot_counter, 0, max_y])
+      plt.plot(plot_tr_err_X, plot_tr_err_Y, 'r', plot_test_err_X, plot_test_err_Y, 'b')
+      train_plot_legend = mpatches.Patch(color='red', label="Train Error")
+      test_plot_legend = mpatches.Patch(color='blue', label="Validation Error")
+      plt.legend(handles=[train_plot_legend, test_plot_legend])
+      plt.show()
 
   #test one instance of data
   def test_one(self, line):

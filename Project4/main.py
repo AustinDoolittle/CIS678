@@ -66,7 +66,7 @@ def main(argv):
       net = nn.Net(topology, args.momentum, args.verbose)
 
       #train the neural network until termination conditions are met
-      net.train(data, args.target, args.batch, args.diverge, args.timeout)
+      net.train(data, args.target, args.batch, args.diverge, args.timeout, draw_graph=(args.iterations == 1))
 
       #test on validation set
       acc = net.test(data.val_set)
