@@ -1,3 +1,10 @@
+###
+# Project 4
+# This contains the class used for datasets to feed into neural networks
+#
+# Author: Austin Doolittle
+###
+
 import random
 import numpy as np
 from sklearn.feature_selection import VarianceThreshold

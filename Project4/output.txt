@@ -1,0 +1,36 @@
+Script started on Tue Apr  4 16:38:24 2017
+[?1034hbash-3.2$ python main.py -f 64 -k 10 --data Datasets/digits-data.dat -t .003 --hidden 50 25 -m .7 --pca 
+	Validate 1, Train Err: 0.00783388182218, Val Err: 0.00797573109307, Diff: 0.000141849270887, Target: 0.003
+	Validate 2, Train Err: 0.000688431544875, Val Err: 0.00464736724069, Diff: 0.00395893569582, Target: 0.003
+	Validate 3, Train Err: 0.000546294207241, Val Err: 0.00445663318429, Diff: 0.00391033897705, Target: 0.003
+	Validate 4, Train Err: 0.000462004411697, Val Err: 0.00437638076529, Diff: 0.00391437635359, Target: 0.003
+	Validate 5, Train Err: 0.000440274894994, Val Err: 0.00416238212925, Diff: 0.00372210723426, Target: 0.003
+	Validate 6, Train Err: 0.000401367828776, Val Err: 0.00412747187566, Diff: 0.00372610404688, Target: 0.003
+	Validate 7, Train Err: 0.000727698879021, Val Err: 0.0039968363961, Diff: 0.00326913751708, Target: 0.003
+	Validate 8, Train Err: 0.000530777305736, Val Err: 0.00426497991974, Diff: 0.003734202614, Target: 0.003
+	Validate 9, Train Err: 0.000462793996354, Val Err: 0.00409708405668, Diff: 0.00363429006032, Target: 0.003
+	Validate 10, Train Err: 0.000447408600567, Val Err: 0.00410904568366, Diff: 0.00366163708309, Target: 0.003
+	Validate 11, Train Err: 0.00040438707016, Val Err: 0.00408286721847, Diff: 0.00367848014831, Target: 0.003
+	Validate 12, Train Err: 0.000400979299782, Val Err: 0.00409781133965, Diff: 0.00369683203987, Target: 0.003
+	Validate 13, Train Err: 0.000398372339829, Val Err: 0.00410760162992, Diff: 0.00370922929009, Target: 0.003
+	Validate 14, Train Err: 0.000396781461567, Val Err: 0.00412454627783, Diff: 0.00372776481626, Target: 0.003
+~DIVERGE LIMIT~
+Train time: 56.6795589924
+
+~~ RESULTS ~~
+686/703 correct, 97.5817923186% Accuracy
+
+~~MAX ACC~~
+97.5817923186%
+Saving Weights
+
+~~ RESULTS ~~
+5575/5620 correct, 99.1992882562% Accuracy
+
+Final accuracy over full data: 99.1992882562
+bash-3.2$ eixt
+bash: eixt: command not found
+bash-3.2$ exit
+exit
+
+Script done on Tue Apr  4 16:39:28 2017

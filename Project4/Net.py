@@ -16,7 +16,7 @@ import matplotlib.patches as mpatches
 #define constants
 DEF_TRAIN_RATE = 0.5
 DEF_MOMENTUM = 0.5
-DEF_VAL_batch_sizeS = 10
+DEF_VAL_SIZE = 50
 
 #the Neural Network object
 class Net(object):
@@ -147,17 +147,23 @@ class Net(object):
 
       #validate on the test data
       val_avg = 0
-      for i in xrange(0, batch_size):
+      # for i in xrange(DEF_VAL_SIZE):
+      #   res = self.forward(data.val_set[test_index][0])
+      #   val_avg += self.get_error(res, data.val_set[test_index][1])
+      #   test_index = (test_index + 1) % len(data.test_set)
+      # val_avg /= DEF_VAL_SIZE
+
+      for i in xrange(len(data.val_set)):
         res = self.forward(data.val_set[test_index][0])
         val_avg += self.get_error(res, data.val_set[test_index][1])
         test_index = (test_index + 1) % len(data.test_set)
-      val_avg /= batch_size
+      val_avg /= len(data.val_set)
 
       plot_test_err_X.append(plot_counter)
       plot_test_err_Y.append(val_avg)
 
       #get the difference
-      diff = tr_avg - val_avg
+      diff = val_avg - tr_avg
 
       #test termination conditions
       if val_avg <= target:
@@ -171,7 +177,7 @@ class Net(object):
         val_counter += 1
 
       #check for divergence
-      if diff < prev_diff:
+      if diff >= prev_diff:
         diverge_count += 1
         if diverge_count == diverge_limit:
           print "~DIVERGE LIMIT~"

@@ -12,6 +12,8 @@ from os.path import splitext, basename
 import Net as nn
 import Dataset as ds
 import pickle as pkl
+import timeit
+
 
 #constants
 DEF_MOMENTUM = .5
@@ -68,8 +70,12 @@ def main(argv):
       #create the Neural Network
       net = nn.Net(topology, args.momentum, args.verbose)
 
+      start_time = timeit.default_timer()
+
       #train the neural network until termination conditions are met
       net.train(data, args.target, args.batch, args.diverge, args.timeout, draw_graph=(args.iterations == 1))
+
+      print "Train time: " + str(timeit.default_timer() - start_time)
 
       #test on validation set
       acc = net.test(data.val_set)
@@ -78,6 +84,7 @@ def main(argv):
       if acc > max_acc:
         max_weights = net.weights
         max_acc = acc
+
 
     #print the max accuracy
     print "~~MAX ACC~~"
