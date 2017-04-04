@@ -196,6 +196,9 @@ class Net(object):
       train_plot_legend = mpatches.Patch(color='red', label="Train Error")
       test_plot_legend = mpatches.Patch(color='blue', label="Validation Error")
       plt.legend(handles=[train_plot_legend, test_plot_legend])
+      plt.title("Training Error")
+      plt.xlabel("Epochs")
+      plt.ylabel("Error (MSQ)")
       plt.show()
 
   #test one instance of data

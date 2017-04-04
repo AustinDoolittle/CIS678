@@ -38,6 +38,7 @@ def main(argv):
   parser.add_argument("-t", "--target", default=DEF_TARGET, type=float, help="The target validation error to reach")
   parser.add_argument("--batch", default=DEF_BATCH, type=int, help="The batch size to train on")
   parser.add_argument("--weightfile", help="The pickle file to load weights from")
+  parser.add_argument("--bin", default=False, action="store_true", help="Transform the data into bins")
   parser.add_argument("-i", "--iterations", default=DEF_INTER, type=int, help="Number of times to pull data, train. Highest accuracy is found and weights are stored")
   parser.add_argument("--diverge", default=DEF_DIVERGE, type=int, help="The number of times the validation set and training set can diverge before training is ended")
   args = parser.parse_args()
@@ -45,22 +46,24 @@ def main(argv):
   max_acc = 0
   max_weights = None
 
+  #generate the Dataset
+  data = ds.Dataset(args.data, args.featurecount, args.classcount, remove_constants=args.remcon, perform_pca=args.pca, binning=args.bin)
+  
+  #create the topology of the neural network
+  if args.hidden is not None:
+    topology = np.append(data.train_set[0][0].shape[0], args.hidden)
+  else:
+    topology = np.array(data.train_set[0][0].shape[0])
+
+  topology = np.append(topology, [data.train_set[0][-1].shape[0]])
+
   #if we didn't provide a weightfile, iterate and train
   if args.weightfile is None:
     #iterate over provided iterations
     for i in xrange(args.iterations):
-      print "Iteration " + str(i + 1)
-
-      #generate dataset
-      data = ds.Dataset(args.data, args.featurecount, args.classcount, remove_constants=args.remcon, perform_pca=args.pca)
-
-      #create the topology of the neural network
-      if args.hidden is not None:
-        topology = np.append(data.train_set[0][0].shape[0], args.hidden)
-      else:
-        topology = np.array(data.train_set[0][0].shape[0])
-
-      topology = np.append(topology, [data.train_set[0][-1].shape[0]])
+      data.shuffle()
+      if args.iterations != 1:
+        print "Iteration " + str(i + 1) + "/" + str(args.iterations)
 
       #create the Neural Network
       net = nn.Net(topology, args.momentum, args.verbose)
@@ -94,9 +97,6 @@ def main(argv):
     #save the weights
     np.save(weights_file, max_weights)
 
-    #get a full dataset just for funsies
-    data = ds.Dataset(args.data, args.featurecount, args.classcount, split=False, remove_constants=args.remcon, perform_pca=args.pca)
-
   else:
     #load the cached weights
     print "Pulling from weight file"
@@ -105,23 +105,13 @@ def main(argv):
     except:
       print "Error loading weights"
       sys.exit(0)
-    #get a full dataset
-    data = ds.Dataset(args.data, args.featurecount, args.classcount, split=False, remove_constants=args.remcon, perform_pca=args.pca)
-
-    #create the topology
-    if args.hidden is not None:
-      topology = np.append(data.train_set[0][0].shape[0], args.hidden)
-    else:
-      topology = np.array(data.train_set[0][0].shape[0])
-
-    topology = np.append(topology, [data.train_set[0][-1].shape[0]])
 
   #create the final neural network
   net = nn.Net(topology, args.momentum, args.verbose)
   net.load_weights(max_weights)
 
   #get the total accuracy and print
-  final_acc = net.test(data.train_set)
+  final_acc = net.test(data.full_set)
   print "Final accuracy over full data: " + str(final_acc * 100)
 
   
