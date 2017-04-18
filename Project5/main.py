@@ -1,6 +1,7 @@
 import argparse as ap
-from ttt import TTT, InvalidMoveException, PLAYER_1, PLAYER_2, CAT_GAME
+from ttt import TTT, PLAYER_1, PLAYER_2, CAT_GAME
 from random import randint
+from players import Player, HumanPlayer, LearningPlayer
 import sys
 
 PLAYER_VS_PLAYER = "PvP"
@@ -8,22 +9,6 @@ PLAYER_VS_COMPUTER = "PvC"
 PLAYER_VS_LEARNER = "PvL"
 LEARNER_VS_COMPUTER = "LvC"
 LEARNER_VS_LEARNER = "LvL"
-
-def get_player_move():
-  while True:
-    try:
-      move = map(int, raw_input().split())
-    except ValueError as e:
-      print "Input could not be parsed to ints, should be two ints in range 0-2 seperated by a space"
-      continue
-    if len(move) != 2 or move[0] < 0 or move[0] > 2 or move[1] < 0 or move[1] > 2:
-      print "Input must be two ints in range 0-2 seperated by a space"
-      continue
-    break
-  return move
-
-def get_random_move():
-  return [randint(0,2), randint(0,2)]
 
 def main(args):
   parser = ap.ArgumentParser(description="A Game of Tic Tac Toe that gradually learns how to play over time")
@@ -35,23 +20,18 @@ def main(args):
   if args.gametype in [PLAYER_VS_PLAYER, PLAYER_VS_COMPUTER]:
     game = TTT(args.verbose)
     
-    curr_player = 1
+    p1 = HumanPlayer(PLAYER_1)
+    if args.gametype == PLAYER_VS_PLAYER:
+      p2 = HumanPlayer(PLAYER_2)
+    else:
+      p2 = Player(PLAYER_2)
+
+    curr_player = p1
     while True:
 
-      while True:
-        print
-        print "Player " + ("1" if curr_player == PLAYER_1 else "2") + ", your move: "
-        if args.gametype == PLAYER_VS_PLAYER or curr_player == PLAYER_1:
-          move = get_player_move()
-        else:
-          move = get_random_move()
-          print str(move[0]) + " " + str(move[1])
-        try: 
-          game.move(curr_player, move)
-        except InvalidMoveException as e:
-          print "That spot is already taken"
-          continue
-        break
+      print "\nPlayer " + ("1" if curr_player.id == PLAYER_1 else "2") + ", your move: "
+      move = curr_player.move(game.board)
+      game.move(curr_player.id, move)
 
       print
       game.draw_board()
@@ -67,7 +47,7 @@ def main(args):
         print "It's a tie!"
         break
 
-      curr_player = -curr_player
+      curr_player = p1 if curr_player == p2 else p2
   else:
     raise NotImplementedError()
     

@@ -26,9 +26,6 @@ class TTT:
     print " " + temp_board[2][0] + " | " + temp_board[2][1] + " | "  + temp_board[2][2]
 
   def move(self, player, move):
-    if self.board[move[0]][move[1]] != EMPTY:
-      raise InvalidMoveException("Position already taken")
-
     self.board[move[0]][move[1]] = player
 
   def check_win(self):
@@ -57,11 +54,5 @@ class TTT:
       return CAT_GAME
 
     return NO_WIN
-
-
-
-class InvalidMoveException(Exception):
-  def __init__(self, message):
-    self.message = message
 
 
