@@ -2,7 +2,7 @@
 #include <vector>
 #include <stdexcept>
 #include <string>
-#include <random>
+#include <stdlib.h>
 #include <iostream>
 #include <functional>
 
@@ -16,7 +16,8 @@ Chromosome::Chromosome(int var_count, double norm_min, double norm_max) {
 
   for(int i = 0; i < var_count; i++) {
     int random_val = std::rand();
-    for(int i = 0; i < VAR_SIZE; i++) {
+
+    for(int j = 0; j < VAR_SIZE; j++) {
       this->bitstring.push_back((bool)(random_val & 1));
       random_val >>= 1;
     }
@@ -33,6 +34,7 @@ Chromosome::Chromosome(Chromosome* c1, Chromosome* c2, int index) {
   for(int j = index; j < c1->bitstring.size(); j++) {
     this->bitstring.push_back(c2->bitstring[j]);
   }
+
 }
 
 Chromosome::Chromosome(Chromosome* c) {
@@ -40,7 +42,9 @@ Chromosome::Chromosome(Chromosome* c) {
   this->min = c->min;
   this->max = c->max;
   for(int i = 0; i < c->bitstring.size(); i++) {
-    if(std::rand() % 10 == 0) {
+    //flip bit with probability .1
+    //prevent the first index from flipping (we don't want to negate)
+    if(i % VAR_SIZE != 0 && std::rand() % 10 == 0) {
       this->bitstring.push_back(!c->bitstring[i]);
     }
     else {
@@ -72,7 +76,7 @@ int Chromosome::size() {
 }
 
 double Chromosome::normalize(int val) {
-  return ((this->max - this->min) * ((double)val / (double)RAND_MAX + 0.0)) + this->min;
+  return (this->max - this->min)*(((double)val)/((double)RAND_MAX)) + this->min;
 }
 
 int Chromosome::get_rand_index() {

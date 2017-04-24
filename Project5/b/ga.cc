@@ -4,7 +4,7 @@
 #include <iostream>
 #include <set>
 #include <time.h>
-#include <random>
+#include <stdlib.h>
 using namespace ga;
 
 GeneticAlgorithm::GeneticAlgorithm(Evaluation::Type eval_type, int pop_size) {
@@ -42,56 +42,83 @@ GeneticAlgorithm::GeneticAlgorithm(Evaluation::Type eval_type, int pop_size) {
   this->pop_size = pop_size;
 }
 
-std::vector<double> GeneticAlgorithm::run(int max_iterations, bool verbose) {
+std::vector<double> GeneticAlgorithm::run(int max_iterations, int verbose) {
   return GeneticAlgorithm::run(max_iterations, verbose, this->pop_size);
 }
 
-std::vector<double> GeneticAlgorithm::run(int max_iterations, bool verbose, int mutate_count) {
+std::vector<double> GeneticAlgorithm::run(int max_iterations, int verbose, int mutate_count) {
   /**
   * SELECTION 
   *
   * Determined automatically on item insertion into the set by sorting on
   * the calculated value in the function
   **/
+
+  if(verbose >= VERBOSE_LOW) {
+    std::cout << "\tCreating initial population..." << std::endl;
+  }
   std::set<std::pair<Chromosome*, double>, pair_compare> population;
   for(int i = 0; i < this->pop_size; i++) {
+    if(verbose >= VERBOSE_HIGH) {
+      std::cout << "\t\t\tInitial population " << (i + 1) << std::endl;
+    }
     Chromosome* temp = new Chromosome(this->var_count, this->norm_min, this->norm_max);
     population.insert(std::make_pair(temp, this->evaluator(temp)));
+  }
+  if(verbose >= VERBOSE_LOW) {
+    std::cout << std::endl;
   }
 
   int counter = 0;
   while(counter < max_iterations) {
     counter++;
 
+    if(verbose >= VERBOSE_LOW) {
+      std::cout << "\tIteration " << counter << "/" << max_iterations << std::endl;
+    }
+
     /**
     * VARIATION
     *
     * Crossover - perform with the best chromosome and all other chromosomes
-    * Mutation - perform current population size / 2 mutations on the best item
+    * Mutation - perform mutations on the best item
     **/
 
     //Crossover
     Chromosome* best= (*population.begin()).first;
-    std::vector<Chromosome*> temp_vec;
+    std::vector<std::pair<Chromosome*, double>> temp_vec;
+    int temp_counter = 1;
     for(auto it2 = ++population.begin(); it2 != population.end(); ++it2) {
+      if(verbose >= VERBOSE_HIGH) {
+        std::cout << "\t\t\tCrossover " << temp_counter << std::endl;
+      }
+      temp_counter++;
       int index = best->get_rand_index();
-      temp_vec.push_back(new Chromosome(best, (*it2).first, index));
-      temp_vec.push_back(new Chromosome((*it2).first, best, index));
+      Chromosome* temp_c1 = new Chromosome(best, (*it2).first, index);
+      Chromosome* temp_c2 = new Chromosome((*it2).first, best, index);
+      temp_vec.push_back(std::make_pair(temp_c1, this->evaluator(temp_c1)));
+      temp_vec.push_back(std::make_pair(temp_c2, this->evaluator(temp_c2)));
     }
 
     for(int i = 0; i < temp_vec.size(); i++) {
-      population.insert(std::make_pair(temp_vec[i], this->evaluator(temp_vec[i])));
+      population.insert(temp_vec[i]);
+    }
+
+    if(verbose >= VERBOSE_MED) {
+      std::cout << "\t\tCrossover complete, pop size: " << population.size() << std::endl;
     }
 
     //Mutation
-    int mutate_count = population.size();
     for(int j = 0; j < mutate_count; j++) {
+      if(verbose >= VERBOSE_HIGH) {
+        std::cout << "\t\t\tMutate " << (j + 1) << std::endl; 
+      }
       Chromosome* temp_c = new Chromosome((*population.begin()).first);
       population.insert(std::make_pair(temp_c,this->evaluator(temp_c)));
     }
 
-    if (verbose) {
-      std::cout << "\tIteration " << counter << "/" << max_iterations << ", min: " << (*population.begin()).second << std::endl;
+    if(verbose >= VERBOSE_MED) {
+      std::cout << "\t\tMutation complete, pop_size: " << population.size() << std::endl;
     }
 
     /**
@@ -107,6 +134,10 @@ std::vector<double> GeneticAlgorithm::run(int max_iterations, bool verbose, int 
       population.erase(temp);
     }
 
+    if (verbose >= VERBOSE_LOW) {
+       std::cout << "\tIteration "<< counter << "/" << max_iterations << " complete, min: " << (*population.begin()).second << std::endl << std::endl;
+    }
+
     /**
     * TERMINATION
     *
@@ -117,7 +148,7 @@ std::vector<double> GeneticAlgorithm::run(int max_iterations, bool verbose, int 
     }
   } 
 
-  if(verbose) {
+  if(verbose >= 1) {
     std::cout << "Finished in " << counter << " iterations, min val: " << (*population.begin()).second << std::endl;
   }
 
@@ -141,20 +172,25 @@ double GeneticAlgorithm::banana(Chromosome* c) {
 }
 
 double GeneticAlgorithm::ga_banana(Chromosome* c) {
+  std::cout << "seed: " << (*c)[0] << ", pop size: " << (*c)[1] << ", mutate count: " << (*c)[2] << std::endl;
   std::srand((*c)[0]);
   GeneticAlgorithm ga(Evaluation::BANANA, (*c)[1]);
   std::clock_t ts = std::clock();
-  ga.run(GA_MAX_ITERS, false, (*c)[2]);
+  ga.run(GA_MAX_ITERS, 0, (*c)[2]);
   std::clock_t te = std::clock();
+
   return ((float)te - (float)ts) / CLOCKS_PER_SEC;
 }
 
 double GeneticAlgorithm::ga_goldstein_price(Chromosome* c) {
+  std::cout << "seed: " << (*c)[0] << ", pop size: " << (*c)[1] << ", mutate count: " << (*c)[2] << std::endl;
   std::srand((*c)[0]);
   GeneticAlgorithm ga(Evaluation::GOLDSTEIN_PRICE, (*c)[1]);
   std::clock_t ts = std::clock();
-  ga.run(GA_MAX_ITERS, false, (*c)[2]);
+  ga.run(GA_MAX_ITERS, 0, (*c)[2]);
   std::clock_t te = std::clock();
+
   return ((float)te - (float)ts) / CLOCKS_PER_SEC;
+
 }
 

@@ -13,10 +13,10 @@ namespace po = boost::program_options;
 using namespace ga;
 
 int main(int argc, char** argv) {
-  std::srand(std::time(NULL));
-
   int pop_size = DEF_POP_SIZE;
   int max_iterations = DEF_MAX_ITERS;
+  int verbose_level = VERBOSE_NONE;
+  int seed = (int)std::time(NULL);
   po::options_description desc("Allowed Arguments");
   desc.add_options()
     ("help,h", "Display all arguments and their action")
@@ -25,7 +25,8 @@ int main(int argc, char** argv) {
     ("goldstein,g", po::bool_switch()->default_value(false), "Evaluation on the goldstein-price equation")
     ("iterations,i", po::value<int>(&max_iterations), "The maximum iterations to run")
     ("inception", po::bool_switch()->default_value(false), "Use a Genetic Algorithm to determine optimal parameters for the given evaluation type")
-    ("verbose,v", po::bool_switch()->default_value(false), "Increase verbosity");
+    ("seed", po::value<int>(&seed), "The value to seed random generation with")
+    ("verbose,v", po::value<int>(&verbose_level), "Increase verbosity");
 
   po::variables_map vm;
   po::store(po::parse_command_line(argc, argv, desc), vm);
@@ -36,6 +37,8 @@ int main(int argc, char** argv) {
     std::cout << desc << std::endl;
     std::exit(0);
   }
+
+  std::srand(seed);
 
   Evaluation::Type eval_type;
   if (vm["banana"].as<bool>() && vm["goldstein"].as<bool>()) {
@@ -62,7 +65,7 @@ int main(int argc, char** argv) {
   GeneticAlgorithm driver(eval_type, pop_size);
 
   std::clock_t ts = std::clock();
-  std::vector<double> vars = driver.run(max_iterations, vm["verbose"].as<bool>());
+  std::vector<double> vars = driver.run(max_iterations, verbose_level);
   std::clock_t te = std::clock();
 
   std::cout << "Variables: ";

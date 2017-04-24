@@ -9,16 +9,20 @@
 #define BANANA_FUNC_MIN -2.0
 #define BANANA_FUNC_MAX 3.0
 #define BANANA_FUNC_VAR_COUNT 2
-#define BANANA_FUNC_TERM 5.0e-16
+#define BANANA_FUNC_TERM 1.0e-15
 #define GOLDSTEIN_PRICE_FUNC_MIN -2.0
 #define GOLDSTEIN_PRICE_FUNC_MAX 2.0
 #define GOLDSTEIN_PRICE_VAR_COUNT 2
-#define GOLDSTEIN_PRICE_TERM 3
+#define GOLDSTEIN_PRICE_TERM 3.00000001
 #define GA_FUNC_MIN 100
-#define GA_FUNC_MAX 2500
+#define GA_FUNC_MAX 1000
 #define GA_VAR_COUNT 3
-#define GA_MAX_ITERS 100000
+#define GA_MAX_ITERS 9999999
 #define GA_TERM 0
+#define VERBOSE_NONE 0
+#define VERBOSE_LOW 1
+#define VERBOSE_MED 2
+#define VERBOSE_HIGH 3
 
 namespace Evaluation {
   enum Type {
@@ -40,8 +44,8 @@ namespace ga {
   class GeneticAlgorithm {
   public:
    GeneticAlgorithm(Evaluation::Type eval_type, int pop_size);
-   std::vector<double> run(int max_iterations, bool verbose);
-   std::vector<double> run(int max_iterations, bool verbose, int mutate_count);
+   std::vector<double> run(int max_iterations, int verbose);
+   std::vector<double> run(int max_iterations, int verbose, int mutate_count);
   private:
     std::function<double (Chromosome*)> evaluator;
     int pop_size;

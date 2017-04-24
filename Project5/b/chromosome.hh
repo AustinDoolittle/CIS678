@@ -3,7 +3,7 @@
 #include <vector>
 #include <cmath>
 
-#define VAR_SIZE 8 * sizeof(int)
+#define VAR_SIZE 8 * sizeof(uint)
 
 
 
