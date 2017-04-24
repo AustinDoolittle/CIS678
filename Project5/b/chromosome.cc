@@ -35,6 +35,21 @@ Chromosome::Chromosome(Chromosome* c1, Chromosome* c2, int index) {
   }
 }
 
+Chromosome::Chromosome(Chromosome* c) {
+  this->var_count = c->var_count;
+  this->min = c->min;
+  this->max = c->max;
+  for(int i = 0; i < c->bitstring.size(); i++) {
+    if(std::rand() % 10 == 0) {
+      this->bitstring.push_back(!c->bitstring[i]);
+    }
+    else {
+      this->bitstring.push_back(c->bitstring[i]);
+    }
+  }
+}
+
+
 double Chromosome::operator[](int index) {
   if (index < 0 || index >= this->var_count) {
     throw std::out_of_range("Got index " + std::to_string(index) + ", bounds [0-" + std::to_string(this->var_count - 1) + "]");

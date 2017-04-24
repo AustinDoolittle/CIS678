@@ -12,6 +12,7 @@ namespace ga {
   public:
     Chromosome(int var_count, double norm_min, double norm_max);
     Chromosome(Chromosome* c1, Chromosome* c2, int index);
+    Chromosome(Chromosome* c);
     double operator[](int index);
     int size();
     int get_rand_index();

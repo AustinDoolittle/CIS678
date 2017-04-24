@@ -4,8 +4,10 @@
 #include <iostream>
 #include <random>
 #include <time.h>
+#include <string>
 
 #define DEF_POP_SIZE 4
+#define DEF_MAX_ITERS 10000
 
 namespace po = boost::program_options;
 using namespace ga;
@@ -14,16 +16,16 @@ int main(int argc, char** argv) {
   std::srand(std::time(NULL));
 
   int pop_size = DEF_POP_SIZE;
+  int max_iterations = DEF_MAX_ITERS;
   po::options_description desc("Allowed Arguments");
   desc.add_options()
     ("help,h", "Display all arguments and their action")
-    ("popsize,p", po::value<int>(&pop_size), "The size of the population to maintain")
-    ("crossover,c", po::bool_switch()->default_value(false), "Perform crossover variation")
-    ("mutation,m", po::bool_switch()->default_value(false), "Perform mutation variation")
+    ("popsize,p", po::value<int>(&pop_size), "The size of the population to maintain)")
     ("banana,b", po::bool_switch()->default_value(false), "Evaluate on the banana equation")
-    ("goldstein,g", po::bool_switch()->default_value(false), "Evaluation on the goldstein-price equation");
-
-
+    ("goldstein,g", po::bool_switch()->default_value(false), "Evaluation on the goldstein-price equation")
+    ("iterations,i", po::value<int>(&max_iterations), "The maximum iterations to run")
+    ("inception", po::bool_switch()->default_value(false), "Use a Genetic Algorithm to determine optimal parameters for the given evaluation type")
+    ("verbose,v", po::bool_switch()->default_value(false), "Increase verbosity");
 
   po::variables_map vm;
   po::store(po::parse_command_line(argc, argv, desc), vm);
@@ -35,50 +37,43 @@ int main(int argc, char** argv) {
     std::exit(0);
   }
 
-  Variation::Type var_type;
   Evaluation::Type eval_type;
-  if (vm["crossover"].as<bool>() && vm["mutation"].as<bool>()) {
-    std::cerr << "You cannot specify multiple variation types" << std::endl;
-    std::exit(EXIT_FAILURE);
-  }
-  else if (vm["mutation"].as<bool>()) {
-    var_type = Variation::MUTATION;
-  }
-  else {
-    var_type = Variation::CROSSOVER;
-  }
-
-
   if (vm["banana"].as<bool>() && vm["goldstein"].as<bool>()) {
     std::cerr << "You cannot specify multiple evaluation equations" << std::endl;
     std::exit(EXIT_FAILURE);
   }
   else if (vm["goldstein"].as<bool>()) {
-    eval_type = Evaluation::BANANA;
+    if (vm["inception"].as<bool>()) {
+      eval_type = Evaluation::GA_GOLDSTEIN_PRICE;
+    }
+    else  {
+      eval_type = Evaluation::GOLDSTEIN_PRICE;
+    }
   }
   else {
-    eval_type = Evaluation::GOLDSTEIN_PRICE;
+    if (vm["inception"].as<bool>()) {
+      eval_type = Evaluation::GA_BANANA;
+    }
+    else  {
+      eval_type = Evaluation::BANANA;
+    }
   }
 
-  GeneticAlgorithm driver(eval_type, var_type, pop_size);
-  driver.run();
+  GeneticAlgorithm driver(eval_type, pop_size);
 
-  // std::cout << "Creating random chromosome" << std::endl;
-  // Chromosome rand_test = Chromosome(2, 0, 1);
-  // std::cout << "done" << std::endl;
-  // double ri1 = rand_test[0];
-  // double ri2 = rand_test[1];
-  // std::cout << "rand_test[0]: " << ri1 << std::endl;
-  // std::cout << "rand_test[1]: " << ri2 << std::endl <<std::endl;
+  std::clock_t ts = std::clock();
+  std::vector<double> vars = driver.run(max_iterations, vm["verbose"].as<bool>());
+  std::clock_t te = std::clock();
 
-  // std::vector<int> var_test(2, 5);
-  // std::cout << "Creating known chromosome" << std::endl;
-  // Chromosome known_test = Chromosome(var_test, 0, 1);
-  // std::cout << "done" << std::endl;
-  // double ki1 = known_test[0];
-  // double ki2 = known_test[1];
-  // std::cout << "known_test[0]: " << ki1 << std::endl;
-  // std::cout << "known_test[1]: " << ki2 << std::endl;
+  std::cout << "Variables: ";
+  for(int i = 0; i < vars.size(); i++) {
+    if(i != 0) {
+      std::cout << ", ";
+    }
+    std::cout << i << ": " << vars[i];
+  }
+  std::cout << std::endl;
+  std::cout << "runtime: " << ((float)te - (float)ts) / CLOCKS_PER_SEC << std::endl;
 
 
 }
