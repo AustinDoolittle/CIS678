@@ -13,11 +13,12 @@
 #define GOLDSTEIN_PRICE_FUNC_MIN -2.0
 #define GOLDSTEIN_PRICE_FUNC_MAX 2.0
 #define GOLDSTEIN_PRICE_VAR_COUNT 2
-#define GOLDSTEIN_PRICE_TERM 3.00000001
+#define GOLDSTEIN_PRICE_TERM 3.0000000001
 #define GA_FUNC_MIN 100
-#define GA_FUNC_MAX 1000
-#define GA_VAR_COUNT 3
-#define GA_MAX_ITERS 9999999
+#define GA_FUNC_MAX 10000
+#define GA_MUTATE_PROB_CUT 100
+#define GA_VAR_COUNT 4
+#define GA_MAX_ITERS 100000
 #define GA_TERM 0
 #define VERBOSE_NONE 0
 #define VERBOSE_LOW 1
@@ -44,8 +45,7 @@ namespace ga {
   class GeneticAlgorithm {
   public:
    GeneticAlgorithm(Evaluation::Type eval_type, int pop_size);
-   std::vector<double> run(int max_iterations, int verbose);
-   std::vector<double> run(int max_iterations, int verbose, int mutate_count);
+    std::vector<double> run(int max_iterations, int verbose, int mutate_prob, int mutate_count);
   private:
     std::function<double (Chromosome*)> evaluator;
     int pop_size;

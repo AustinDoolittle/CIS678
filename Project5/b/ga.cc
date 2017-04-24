@@ -42,11 +42,7 @@ GeneticAlgorithm::GeneticAlgorithm(Evaluation::Type eval_type, int pop_size) {
   this->pop_size = pop_size;
 }
 
-std::vector<double> GeneticAlgorithm::run(int max_iterations, int verbose) {
-  return GeneticAlgorithm::run(max_iterations, verbose, this->pop_size);
-}
-
-std::vector<double> GeneticAlgorithm::run(int max_iterations, int verbose, int mutate_count) {
+std::vector<double> GeneticAlgorithm::run(int max_iterations, int verbose, int mutate_prob, int mutate_count) {
   /**
   * SELECTION 
   *
@@ -66,7 +62,7 @@ std::vector<double> GeneticAlgorithm::run(int max_iterations, int verbose, int m
     population.insert(std::make_pair(temp, this->evaluator(temp)));
   }
   if(verbose >= VERBOSE_LOW) {
-    std::cout << std::endl;
+    std::cout << "\tInitial population created" << std::endl << std::endl;
   }
 
   int counter = 0;
@@ -85,6 +81,10 @@ std::vector<double> GeneticAlgorithm::run(int max_iterations, int verbose, int m
     **/
 
     //Crossover
+    if(verbose >= VERBOSE_MED) {
+      std::cout << "\t\tBegin Crossover" << std::endl;
+    }
+
     Chromosome* best= (*population.begin()).first;
     std::vector<std::pair<Chromosome*, double>> temp_vec;
     int temp_counter = 1;
@@ -109,11 +109,15 @@ std::vector<double> GeneticAlgorithm::run(int max_iterations, int verbose, int m
     }
 
     //Mutation
+    if(verbose >= VERBOSE_MED) {
+      std::cout << "\t\tBegin Mutation" << std::endl;
+    }
+
     for(int j = 0; j < mutate_count; j++) {
       if(verbose >= VERBOSE_HIGH) {
         std::cout << "\t\t\tMutate " << (j + 1) << std::endl; 
       }
-      Chromosome* temp_c = new Chromosome((*population.begin()).first);
+      Chromosome* temp_c = new Chromosome((*population.begin()).first, mutate_prob);
       population.insert(std::make_pair(temp_c,this->evaluator(temp_c)));
     }
 
@@ -126,6 +130,10 @@ std::vector<double> GeneticAlgorithm::run(int max_iterations, int verbose, int m
     *
     * Trim to the population size
     */
+
+    if(verbose >= VERBOSE_MED) {
+      std::cout << "\t\tBegin Trimming" <<  std::endl;
+    }
     auto it3 = population.begin();
     std::advance(it3, this->pop_size);
     while (it3 != population.end()) {
@@ -133,7 +141,9 @@ std::vector<double> GeneticAlgorithm::run(int max_iterations, int verbose, int m
       delete (*temp).first;
       population.erase(temp);
     }
-
+    if(verbose >= VERBOSE_MED) {
+      std::cout << "\t\tTrimming complete, pop_size: " << population.size() << std::endl;
+    }
     if (verbose >= VERBOSE_LOW) {
        std::cout << "\tIteration "<< counter << "/" << max_iterations << " complete, min: " << (*population.begin()).second << std::endl << std::endl;
     }
@@ -172,22 +182,20 @@ double GeneticAlgorithm::banana(Chromosome* c) {
 }
 
 double GeneticAlgorithm::ga_banana(Chromosome* c) {
-  std::cout << "seed: " << (*c)[0] << ", pop size: " << (*c)[1] << ", mutate count: " << (*c)[2] << std::endl;
   std::srand((*c)[0]);
   GeneticAlgorithm ga(Evaluation::BANANA, (*c)[1]);
   std::clock_t ts = std::clock();
-  ga.run(GA_MAX_ITERS, 0, (*c)[2]);
+  ga.run(GA_MAX_ITERS, VERBOSE_NONE, (*c)[2], ((*c)[3]/GA_MUTATE_PROB_CUT));
   std::clock_t te = std::clock();
 
   return ((float)te - (float)ts) / CLOCKS_PER_SEC;
 }
 
 double GeneticAlgorithm::ga_goldstein_price(Chromosome* c) {
-  std::cout << "seed: " << (*c)[0] << ", pop size: " << (*c)[1] << ", mutate count: " << (*c)[2] << std::endl;
   std::srand((*c)[0]);
   GeneticAlgorithm ga(Evaluation::GOLDSTEIN_PRICE, (*c)[1]);
   std::clock_t ts = std::clock();
-  ga.run(GA_MAX_ITERS, 0, (*c)[2]);
+  ga.run(GA_MAX_ITERS, VERBOSE_NONE, (*c)[2], ((*c)[3]/GA_MUTATE_PROB_CUT));
   std::clock_t te = std::clock();
 
   return ((float)te - (float)ts) / CLOCKS_PER_SEC;

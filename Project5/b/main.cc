@@ -4,9 +4,11 @@
 #include <iostream>
 #include <random>
 #include <time.h>
+#include <climits>
 #include <string>
 
 #define DEF_POP_SIZE 4
+#define DEF_MUTATE_PROB 10
 #define DEF_MAX_ITERS 10000
 
 namespace po = boost::program_options;
@@ -17,6 +19,7 @@ int main(int argc, char** argv) {
   int max_iterations = DEF_MAX_ITERS;
   int verbose_level = VERBOSE_NONE;
   int seed = (int)std::time(NULL);
+  int mutate_prob = DEF_MUTATE_PROB;
   po::options_description desc("Allowed Arguments");
   desc.add_options()
     ("help,h", "Display all arguments and their action")
@@ -26,6 +29,8 @@ int main(int argc, char** argv) {
     ("iterations,i", po::value<int>(&max_iterations), "The maximum iterations to run")
     ("inception", po::bool_switch()->default_value(false), "Use a Genetic Algorithm to determine optimal parameters for the given evaluation type")
     ("seed", po::value<int>(&seed), "The value to seed random generation with")
+    ("mprob", po::value<int>(&mutate_prob), "the probability of mutation")
+    ("mcount", po::value<int>(), "the amount of mutations to perform")
     ("verbose,v", po::value<int>(&verbose_level), "Increase verbosity");
 
   po::variables_map vm;
@@ -38,7 +43,16 @@ int main(int argc, char** argv) {
     std::exit(0);
   }
 
+
   std::srand(seed);
+
+  int mutate_count = 0;
+  if (vm.count("mcount")) {
+    mutate_count = vm["mcount"].as<int>();
+  }
+  else {
+    mutate_count = pop_size;
+  }
 
   Evaluation::Type eval_type;
   if (vm["banana"].as<bool>() && vm["goldstein"].as<bool>()) {
@@ -64,8 +78,9 @@ int main(int argc, char** argv) {
 
   GeneticAlgorithm driver(eval_type, pop_size);
 
+  std::cout << "Starting Genetic Algorithm..." << std::endl;
   std::clock_t ts = std::clock();
-  std::vector<double> vars = driver.run(max_iterations, verbose_level);
+  std::vector<double> vars = driver.run(max_iterations, verbose_level, mutate_prob, mutate_count);
   std::clock_t te = std::clock();
 
   std::cout << "Variables: ";

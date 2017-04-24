@@ -37,14 +37,14 @@ Chromosome::Chromosome(Chromosome* c1, Chromosome* c2, int index) {
 
 }
 
-Chromosome::Chromosome(Chromosome* c) {
+Chromosome::Chromosome(Chromosome* c, int mutate_prob) {
   this->var_count = c->var_count;
   this->min = c->min;
   this->max = c->max;
   for(int i = 0; i < c->bitstring.size(); i++) {
-    //flip bit with probability .1
-    //prevent the first index from flipping (we don't want to negate)
-    if(i % VAR_SIZE != 0 && std::rand() % 10 == 0) {
+    //flip bit
+    //prevent the sign bit from flipping (we don't want negative numbers)
+    if((i % VAR_SIZE != (VAR_SIZE - 1)) && std::rand() % mutate_prob == 0) {
       this->bitstring.push_back(!c->bitstring[i]);
     }
     else {
