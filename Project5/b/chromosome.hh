@@ -1,11 +1,16 @@
+/**
+* chromosome.hh
+*
+* The header file for the declaration of the Chromosome object
+* Author: Austin Doolittle
+**/
+
 #ifndef CHROMOSOME_HH
 #define CHROMOSOME_HH
 #include <vector>
-#include <cmath>
 
+//define the variable size in bits
 #define VAR_SIZE (8 * sizeof(int))
-
-
 
 namespace ga {
   class Chromosome {

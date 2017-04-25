@@ -1,3 +1,10 @@
+/**
+* ga.hh
+*
+* The header file containing the definition of the Genetic Algorithm object
+* Author: Austin Doolittle
+**/
+
 #ifndef GA_HH
 #define GA_HH
 
@@ -6,6 +13,7 @@
 #include <functional>
 #include <tuple>
 
+//define constants
 #define BANANA_FUNC_MIN -2.0
 #define BANANA_FUNC_MAX 3.0
 #define BANANA_FUNC_VAR_COUNT 2
@@ -25,6 +33,7 @@
 #define VERBOSE_MED 2
 #define VERBOSE_HIGH 3
 
+//create enum for evaluation type
 namespace Evaluation {
   enum Type {
     BANANA,
@@ -36,6 +45,7 @@ namespace Evaluation {
 
 namespace ga {
 
+  //declare comparer for set ordering
   struct pair_compare {
     bool operator() (const std::pair<Chromosome*, double>& lhs, const std::pair<Chromosome*, double>& rhs) const{
         return lhs.second <= rhs.second;
@@ -44,7 +54,7 @@ namespace ga {
 
   class GeneticAlgorithm {
   public:
-   GeneticAlgorithm(Evaluation::Type eval_type, int pop_size);
+    GeneticAlgorithm(Evaluation::Type eval_type, int pop_size);
     std::vector<double> run(int max_iterations, int verbose, int mutate_prob, int mutate_count);
   private:
     std::function<double (Chromosome*)> evaluator;
