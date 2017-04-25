@@ -39,8 +39,13 @@ Chromosome::Chromosome(Chromosome* c1, Chromosome* c2, int index) {
   int sup_index = index - sub_index;
   for(int i = 0; i < c1->bitstring.size(); i++) {
     if (i == sup_index) {
+      //trim bits off front of bitstring
       int temp_2 = ((c2->bitstring[i] << (sub_index)) >> (sub_index));
+
+      //trim bits off end of bistring
       int temp_1 = ((c1->bitstring[i] >> ((INT_SIZE - sub_index) + 1)) << ((INT_SIZE - sub_index) + 1));
+
+      //combine
       this->bitstring.push_back(temp_1 | temp_2);
     }
     else if (i < sup_index) {
@@ -58,8 +63,7 @@ Chromosome::Chromosome(Chromosome* c, int mutate_prob) {
   this->min = c->min;
   this->max = c->max;
   for(int i = 0; i < c->bitstring.size(); i++) {
-    //flip bit
-    //prevent the sign bit from flipping (we don't want negative numbers, screws up our normalization)
+    //create mask and xor with other bitstring values
     int mask = 0;
     for(int j = 0; j < INT_SIZE; j++) {
       mask <<= 1;
