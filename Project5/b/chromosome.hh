@@ -9,8 +9,7 @@
 #define CHROMOSOME_HH
 #include <vector>
 
-//define the variable size in bits
-#define VAR_SIZE (8 * sizeof(int))
+#define INT_SIZE (sizeof(int) * 8)
 
 namespace ga {
   class Chromosome {
@@ -26,7 +25,7 @@ namespace ga {
     int var_count;
     double min;
     double max;
-    std::vector<bool> bitstring;
+    std::vector<int> bitstring;
     double normalize(int val);
   };
 }

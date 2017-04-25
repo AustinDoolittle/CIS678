@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <string>
 #include <functional>
+#include <iostream>
 
 using namespace ga;
 
@@ -23,10 +24,7 @@ Chromosome::Chromosome(int var_count, double norm_min, double norm_max) {
   //for each variable, add its bits to the bitstring
   for(int i = 0; i < var_count; i++) {
     int random_val = rand();
-    for(int j = 0; j < VAR_SIZE; j++) {
-      this->bitstring.push_back((bool)(random_val & 1));
-      random_val >>= 1;
-    }
+    this->bitstring.push_back(random_val);
   }
 }
 
@@ -37,11 +35,20 @@ Chromosome::Chromosome(Chromosome* c1, Chromosome* c2, int index) {
   this->max = c1->max;
 
   //iterate until the split index and splice
-  for(int i = 0; i < index; i++) {
-    this->bitstring.push_back(c1->bitstring[i]);
-  }
-  for(int j = index; j < c1->bitstring.size(); j++) {
-    this->bitstring.push_back(c2->bitstring[j]);
+  int sub_index = index % INT_SIZE;
+  int sup_index = index - sub_index;
+  for(int i = 0; i < c1->bitstring.size(); i++) {
+    if (i == sup_index) {
+      int temp_2 = ((c2->bitstring[i] << (sub_index)) >> (sub_index));
+      int temp_1 = ((c1->bitstring[i] >> ((INT_SIZE - sub_index) + 1)) << ((INT_SIZE - sub_index) + 1));
+      this->bitstring.push_back(temp_1 | temp_2);
+    }
+    else if (i < sup_index) {
+      this->bitstring.push_back(c1->bitstring[i]);
+    }
+    else {
+      this->bitstring.push_back(c2->bitstring[i]);
+    }
   }
 }
 
@@ -53,12 +60,14 @@ Chromosome::Chromosome(Chromosome* c, int mutate_prob) {
   for(int i = 0; i < c->bitstring.size(); i++) {
     //flip bit
     //prevent the sign bit from flipping (we don't want negative numbers, screws up our normalization)
-    if((i % VAR_SIZE != (VAR_SIZE - 1)) && rand() % mutate_prob == 0) {
-      this->bitstring.push_back(!c->bitstring[i]);
+    int mask = 0;
+    for(int j = 0; j < INT_SIZE; j++) {
+      mask <<= 1;
+      if(j != 0 && rand() % mutate_prob == 0) {
+        mask |= 1;
+      }
     }
-    else {
-      this->bitstring.push_back(c->bitstring[i]);
-    }
+    this->bitstring.push_back(mask ^ c->bitstring[i]);
   }
 }
 
@@ -68,19 +77,7 @@ double Chromosome::operator[](int index) {
   if (index < 0 || index >= this->var_count) {
     throw std::out_of_range("Got index " + std::to_string(index) + ", bounds [0-" + std::to_string(this->var_count - 1) + "]");
   }
-
-  //get the start and end of this value
-  auto start = this->bitstring.begin() + (index * VAR_SIZE) - 1;
-  auto end = start + VAR_SIZE;
-
-  //iterate and create the object
-  int int_convert = 0;
-  while (start != end) {
-    int_convert <<= 1;
-    int_convert += (int)*end;
-    end--;
-  }
-  return this->normalize(int_convert);
+  return this->normalize(this->bitstring[index]);
 }
 
 //Returns the number of variables
@@ -95,7 +92,7 @@ double Chromosome::normalize(int val) {
 
 //returns a random value in the bounds of the index
 int Chromosome::get_rand_index() {
-  return rand() % this->bitstring.size();
+  return rand() % (this->bitstring.size() * INT_SIZE);
 }
 
 //returns a vector of the parameters stored in the chromosome

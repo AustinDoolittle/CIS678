@@ -198,7 +198,7 @@ std::vector<double> GeneticAlgorithm::run(int max_iterations, int verbose, int m
     *
     * Check if we have the correct output
     **/
-    if ((*population.begin()).second <= this->term_val) {
+    if (std::abs(this->term_val - (*population.begin()).second) <= TERM_DIFF) {
       break;
     }
   } 
@@ -252,6 +252,7 @@ double GeneticAlgorithm::ga_banana(Chromosome* c) {
 
 //The function to run a Genetic algorithm on the Goldstein-price function and return the runtime
 double GeneticAlgorithm::ga_goldstein_price(Chromosome* c) {
+  std::cout << "seed: " << (*c)[0] << ", pop size: " << (*c)[1] << ", mutation count: " << (*c)[2] << ", mutate prob: " << ((*c)[3]/GA_MUTATE_PROB_CUT) << std::endl;
   //seed with the chromosome's first parameter
   std::srand((*c)[0]);
 
